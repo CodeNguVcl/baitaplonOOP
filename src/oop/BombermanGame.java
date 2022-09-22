@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package oop;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -7,14 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.graphics.Sprite;
 
-import java.io.File;
-import java.io.IOException;
+import oop.entities.Bomber;
+import oop.entities.Entity;
+// import oop.entities.Grass;
+// import oop.entities.Wall;
+import oop.graphics.Sprite;
+import oop.graphics.CreateMap;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BombermanGame extends Application {
     
@@ -24,7 +26,7 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private final List<Entity> entities = new ArrayList<>();
-    private final List<Entity> stillObjects = new ArrayList<>();
+    public static final List<Entity> stillObjects = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -32,7 +34,7 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException{
+    public void start(Stage stage) {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -57,40 +59,10 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap();
+        new CreateMap("res/levels/lv1.txt");
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-    }
-
-    public void createMap() throws IOException{
-        File file = new File ("C:\\Users\\Nguyen Quang Anh\\Documents\\GitHub\\baitaplonOOP\\res\\levels\\NewGame.txt");
-        Scanner scanner = new Scanner(file);
-        scanner.nextInt();
-        scanner.nextInt();
-        scanner.nextInt();
-
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                Entity object;
-                String symbol = scanner.next();
-                switch (symbol) {
-                    case "#":
-                        object = new Wall(j, i, Sprite.wall.getFxImage());
-                        break;
-                    case "*":
-                        object = new Brick(j, i, Sprite.brick.getFxImage());
-                        break;
-                    case "x":
-                        object = new Portal(j, i, Sprite.portal.getFxImage());
-                        break;
-                    default:
-                        object = new Grass(j, i, Sprite.grass.getFxImage());
-                        break;
-                }
-                stillObjects.add(object);
-            }
-        }
     }
 
     public void update() {

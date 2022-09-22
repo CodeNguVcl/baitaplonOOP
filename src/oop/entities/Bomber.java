@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities;
+package oop.entities;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
