@@ -11,8 +11,24 @@ public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int x;
 
+    public int getX() {
+        return this.x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
+
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     protected Image img;
 

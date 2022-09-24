@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import oop.entities.Brick;
 import oop.entities.Entity;
 import oop.entities.Grass;
+import oop.entities.Portal;
 import oop.entities.Wall;
 
 import static oop.BombermanGame.*;
@@ -40,8 +41,12 @@ public class CreateMap {
               case "*": 
                 ett = new Brick(j, i, Sprite.brick.getFxImage());
                 break;
+              case "x":
+                ett = new Portal(j, i, Sprite.portal.getFxImage());
+                break;
               default:
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
+                break;
             }
             stillObjects.add(ett);
           }
