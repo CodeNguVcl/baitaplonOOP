@@ -4,65 +4,44 @@ import javafx.scene.image.Image;
 import oop.graphics.Sprite;
 
 import java.util.Random;
-
 public class Balloom extends Character {
+    Random random = new Random();
+    private int rand = random.nextInt(4);
     public Balloom(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
 
     public void move() {
-            /*Random random = new Random();
-            int rand = random.nextInt(4);
+        if (x%32 == 0 && y%32 == 0) {
+            rand = random.nextInt(4);
+        }
             switch (rand) {
                 case 0: {
                     direction = "up";
-                    y -= Sprite.SCALED_SIZE / 8;
+                    y -= Sprite.SCALED_SIZE / 16;
                 }
                 break;
                 case 1: {
                     direction = "down";
-                    y += Sprite.SCALED_SIZE / 8;
+                    y += Sprite.SCALED_SIZE / 16;
                 }
                 break;
                 case 2: {
                     direction = "left";
-                    x += Sprite.SCALED_SIZE / 8;
+                    x += Sprite.SCALED_SIZE / 16;
                 }
                 break;
                 case 3: {
                     direction = "right";
-                    x -= Sprite.SCALED_SIZE / 8;
+                    x -= Sprite.SCALED_SIZE / 16;
                 }
                 break;
-            }*/
+            }
     }
 
     @Override
     public void update() {
-        /*Random random = new Random();
-        int rand = random.nextInt(4);
-        switch (rand) {
-            case 0: {
-                direction = "up";
-                y -= Sprite.SCALED_SIZE / 8;
-            }
-            break;
-            case 1: {
-                direction = "down";
-                y += Sprite.SCALED_SIZE / 8;
-            }
-            break;
-            case 2: {
-                direction = "left";
-                x += Sprite.SCALED_SIZE / 8;
-            }
-            break;
-            case 3: {
-                direction = "right";
-                x -= Sprite.SCALED_SIZE / 8;
-            }
-            break;
-        }*/
+        move();
         switch(direction) {
             case "up" : {
                 if (step == 0) {
@@ -126,7 +105,7 @@ public class Balloom extends Character {
             }
         }
         stepCount++;
-        if (stepCount == 20) {
+        if (stepCount == 8) {
             if (step == 3) {
                 step = 0;
             }
