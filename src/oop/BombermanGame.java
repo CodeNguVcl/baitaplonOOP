@@ -8,7 +8,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
-import oop.entities.Bomber;
+import oop.entities.character.Balloom;
+import oop.entities.character.Bomber;
 import oop.entities.Entity;
 
 // import oop.entities.Grass;
@@ -66,6 +67,8 @@ public class BombermanGame extends Application {
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
+        Entity balloom = new Balloom(13, 1, Sprite.balloom_left1.getFxImage());
+        entities.add(balloom);
     }
 
     public void update() {
