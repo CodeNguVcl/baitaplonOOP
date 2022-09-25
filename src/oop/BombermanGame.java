@@ -28,6 +28,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private final List<Entity> entities = new ArrayList<>();
     public static final List<Entity> stillObjects = new ArrayList<>();
+    public static String[][] IdMap;
     public static Scene scene;
 
     public static void main(String[] args) {

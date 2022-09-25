@@ -1,8 +1,8 @@
 package oop.entities;
 
 import javafx.event.EventHandler;
-import java.text.BreakIterator;
 
+import javax.crypto.spec.IvParameterSpec;
 import javax.swing.SpringLayout;
 
 import javafx.scene.SnapshotParameters;
@@ -11,18 +11,45 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import oop.BombermanGame;
+import oop.graphics.CreateMap;
 import oop.graphics.Sprite;
 
+import oop.BombermanGame;
+import oop.entities.animation.Animation;
+
+import static oop.BombermanGame.IdMap;
+
+import oop.graphics.CreateMap.*;
 public class Bomber extends Entity {
 
+    /**direction */
+    private double dirX = 0;
+    private double dirY = 0;
+
+    /**status (up down left right) */
+    public static final int IDLE = 0;
+    public static final int DOWN = 1;
+    public static final int UP = 2;
+    public static final int LEFT = 3;
+    public static final int RIGHT = 4;
+    public static final int DEAD = 5;
+    private int currStt = Bomber.IDLE;
+
+    public Image image;
+
+    private Animation[] sttanm;
+
+    /*speed + accel */
+    private double speed_x = 1;
+    private double speed_y = 1;
+    final private double accelration = 0.5;
 
 
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
 
-    public void move() {
+    private void move() {
         BombermanGame.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override 
             public void handle(KeyEvent keyEvent) {
@@ -32,47 +59,59 @@ public class Bomber extends Entity {
             private void handleEvent(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()){
                     case UP: {
-                        // currentStatus=Bomber.UP;
-                        // dir_x = 0;
-                        // dir_y = -1;
-                        y -= Sprite.SCALED_SIZE;
+                        currStt = Bomber.UP;
+                        dirX = 0;
+                        dirY = -1;
+                        image = Sprite.player_up.getFxImage();
                         break;
                     }
                     case DOWN: {
-                        // currentStatus=Bomber.DOWN;
-                        // dir_x = 0;
-                        // dir_y = 1;
-                        y += Sprite.SCALED_SIZE / 2;
+                        currStt = Bomber.DOWN;
+                        dirX = 0;
+                        dirY = 1;
+                        image = Sprite.player_down.getFxImage();
                         break;
                     }
                     case LEFT: {
-                        // currentStatus=Bomber.LEFT;
-                        // dir_x = -1;
-                        // dir_y = 0;
-                        x -= Sprite.SCALED_SIZE / 2;
+                        currStt = Bomber.LEFT;
+                        dirX = -1;
+                        dirY = 0;
+                        image = Sprite.player_left.getFxImage();
                         break;
                     }
                     case RIGHT: {
-                        // currentStatus=Bomber.RIGHT;
-                        // dir_x = 1;
-                        // dir_y = 0;
-                        x += Sprite.SCALED_SIZE / 2;
+                        currStt = Bomber.RIGHT;
+                        dirX = 1;
+                        dirY = 0;
+                        image = Sprite.player_right.getFxImage();
                         break;
                     }
                 }
-                // speed_x += Math.abs(dir_x) * acc;
-                // speed_y += Math.abs(dir_y) * acc;
+                speed_x += Math.abs(dirX) * accelration;
+                speed_y += Math.abs(dirY) * accelration;
+            }
+        });
+
+        BombermanGame.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent e) {
+                currStt = Bomber.IDLE;
+                dirX = 0;
+                dirY = 0;
+                speed_x = 1;
+                speed_y = 1;
             }
         });
     }
 
 
-    public void checkCollision() {
+    @Override
+    public void update() {
+        img = image;
+        move();
+
+        x = (int) (x + speed_x * dirX);
+        y = (int) (y + speed_y * dirY);
         
     }
 
-    @Override
-    public void update() {
-        move();
-    }
 }
