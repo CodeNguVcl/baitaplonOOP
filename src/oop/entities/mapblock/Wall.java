@@ -1,6 +1,7 @@
-package oop.entities;
+package oop.entities.mapblock;
 
 import javafx.scene.image.Image;
+import oop.entities.Entity;
 
 public class Wall extends Entity {
 

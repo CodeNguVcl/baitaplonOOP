@@ -12,6 +12,9 @@ public class Balloom extends Character {
     }
 
     public void move() {
+
+        if (x % 32 == 0 && y % 32 == 0) {
+
         if (x%32 == 0 && y%32 == 0) {
             rand = random.nextInt(4);
         }
@@ -19,24 +22,28 @@ public class Balloom extends Character {
                 case 0: {
                     direction = "up";
                     y -= Sprite.SCALED_SIZE / 16;
+
+                    break;
                 }
-                break;
                 case 1: {
                     direction = "down";
                     y += Sprite.SCALED_SIZE / 16;
+                    break;
                 }
-                break;
+            
                 case 2: {
                     direction = "left";
                     x += Sprite.SCALED_SIZE / 16;
+                    break;
                 }
-                break;
+                
                 case 3: {
                     direction = "right";
                     x -= Sprite.SCALED_SIZE / 16;
+                    break;
                 }
-                break;
             }
+        }
     }
 
     @Override

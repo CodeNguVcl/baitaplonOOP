@@ -6,11 +6,11 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import oop.BombermanGame;
-import oop.entities.Brick;
+import oop.entities.mapblock.Brick;
 import oop.entities.Entity;
-import oop.entities.Grass;
-import oop.entities.Portal;
-import oop.entities.Wall;
+import oop.entities.mapblock.Grass;
+import oop.entities.mapblock.Portal;
+import oop.entities.mapblock.Wall;
 
 import static oop.BombermanGame.*;
 

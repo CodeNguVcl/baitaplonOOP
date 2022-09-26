@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import oop.entities.Entity;
 
 public abstract class Character extends Entity {
-    protected String direction = "right";
+    protected String direction = "idle";
     protected int step = 0;
     protected int stepCount = 0;
 
