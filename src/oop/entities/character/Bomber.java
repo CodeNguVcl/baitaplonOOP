@@ -1,7 +1,5 @@
 package oop.entities.character;
 
-import javax.naming.directory.DirContext;
-
 import javafx.event.EventHandler;
 
 import javafx.scene.image.Image;
@@ -13,8 +11,12 @@ import oop.graphics.Sprite;
 import oop.BombermanGame;
 import oop.entities.animation.Animation;
 
+import oop.control.Collision;
+
 public class Bomber extends Character {
 
+    public static int getSpeed_y;
+    public static int getSpeed_x;
     /**
      * direction
      */
@@ -31,13 +33,6 @@ public class Bomber extends Character {
     // public static final int RIGHT = 4;
     // public static final int DEAD = 5;
     // private int currStt = Bomber.IDLE;
-    public static final int IDLE = 0;
-    public static final int DOWN = 1;
-    public static final int UP = 2;
-    public static final int LEFT = 3;
-    public static final int RIGHT = 4;
-    public static final int DEAD = 5;
-    private int currStt = Bomber.IDLE;
 
 
     public Image image;
@@ -47,8 +42,9 @@ public class Bomber extends Character {
     /*speed + accel */
     private double speed_x = 1;
     private double speed_y = 1;
-    final private double accelration = 0.5;
-    final private double max_speed = 5.0;
+
+    final private double accelration = 1.0;
+    final private double max_speed = 7.0;
 
     private boolean canMove = false;
 
@@ -160,9 +156,11 @@ public class Bomber extends Character {
                 }
                 if (step == 1) {
                     img = Sprite.player_down_1.getFxImage();
-                } else if (step == 2) {
+                } 
+                if (step == 2) {
                     img = Sprite.player_down.getFxImage();
-                } else if (step == 3) {
+                } 
+                if (step == 3) {
                     img = Sprite.player_down_2.getFxImage();
                 }
                 break;
@@ -203,41 +201,41 @@ public class Bomber extends Character {
 
     @Override
     public void update() {
-        //img = image;
+
         move();
+
+        if (canMove) {
+            x = (int) (x + speed_x * dirX);
+            y = (int) (y + speed_y * dirY);
+            canMove = false;
+        }
+
         switch (direction) {
             case "up": {
-                if (CreateMap.idMap[(int) ((y + 4 - speed_y) / Sprite.SCALED_SIZE)][((x + 4) / Sprite.SCALED_SIZE)].equals("-")
-                && CreateMap.idMap[(int) ((y + 4 - speed_y) / Sprite.SCALED_SIZE)][((x + Sprite.SCALED_SIZE - 4) / Sprite.SCALED_SIZE)].equals("-"))
+                if (Collision.colliSionUp(this.x, this.y))
                     canMove = true;
                 break;
             }
             case "down": {
-                if (CreateMap.idMap[(int) ((y + Sprite.SCALED_SIZE - 4 + speed_y) / Sprite.SCALED_SIZE)][((x + 4) / Sprite.SCALED_SIZE)].equals("-")
-                && CreateMap.idMap[(int) ((y + Sprite.SCALED_SIZE - 4 + speed_y) / Sprite.SCALED_SIZE)][(x + Sprite.SCALED_SIZE - 4) / Sprite.SCALED_SIZE].equals("-"))
+                if (Collision.collisionDown(this.x, this.y))
                     canMove = true;
                 break;
             }
             case "left": {
-                if (CreateMap.idMap[(y + 4) / Sprite.SCALED_SIZE][(int) ((x + 4 - speed_x) / Sprite.SCALED_SIZE)].equals("-")
-                && CreateMap.idMap[(y + Sprite.SCALED_SIZE - 4)/ Sprite.SCALED_SIZE][(int) ((x + 4 - speed_x) / Sprite.SCALED_SIZE)].equals("-"))
+                if (Collision.collisionLeft(this.x, this.y))
                     canMove = true;
                 break;
             }
             case "right": {
-                if (CreateMap.idMap[(y + 4) / Sprite.SCALED_SIZE][(int) ((x + Sprite.SCALED_SIZE - 4 + speed_x) / Sprite.SCALED_SIZE)].equals("-")
-                        && CreateMap.idMap[(y + Sprite.SCALED_SIZE - 4)/ Sprite.SCALED_SIZE][(int) ((x + Sprite.SCALED_SIZE - 4 + speed_x) / Sprite.SCALED_SIZE)].equals("-"))
+                if (Collision.colliSionRight(this.x, this.y))
                     canMove = true;
                 break;
             }
             default:
                 break;
         }
-        if (canMove) {
-            x = (int) (x + speed_x * dirX);
-            y = (int) (y + speed_y * dirY);
-            canMove = false;
-        }
+
+
         if (!direction.equals("idle")) {
             loadAnimation();
             stepCount++;
@@ -252,6 +250,15 @@ public class Bomber extends Character {
         } else {
             stepCount = 0;
         }
+    }
+
+
+    public double getSpeed_x() {
+        return this.speed_x;
+    }
+
+    public double getSpeed_y() {
+        return this.speed_y;
     }
 }
 
