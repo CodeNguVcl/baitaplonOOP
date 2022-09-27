@@ -50,6 +50,8 @@ public class Bomber extends Character {
     final private double accelration = 0.5;
     final private double max_speed = 5.0;
 
+    private boolean canMove = false;
+
     //private int step = 0;
     //private int stepCount = 0;
     // direction = "right";
@@ -203,8 +205,39 @@ public class Bomber extends Character {
     public void update() {
         //img = image;
         move();
-        x = (int) (x + speed_x * dirX);
-        y = (int) (y + speed_y * dirY);
+        switch (direction) {
+            case "up": {
+                if (CreateMap.idMap[(int) ((y + 4 - speed_y) / Sprite.SCALED_SIZE)][((x + 4) / Sprite.SCALED_SIZE)].equals("-")
+                && CreateMap.idMap[(int) ((y + 4 - speed_y) / Sprite.SCALED_SIZE)][((x + Sprite.SCALED_SIZE - 4) / Sprite.SCALED_SIZE)].equals("-"))
+                    canMove = true;
+                break;
+            }
+            case "down": {
+                if (CreateMap.idMap[(int) ((y + Sprite.SCALED_SIZE - 4 + speed_y) / Sprite.SCALED_SIZE)][((x + 4) / Sprite.SCALED_SIZE)].equals("-")
+                && CreateMap.idMap[(int) ((y + Sprite.SCALED_SIZE - 4 + speed_y) / Sprite.SCALED_SIZE)][(x + Sprite.SCALED_SIZE - 4) / Sprite.SCALED_SIZE].equals("-"))
+                    canMove = true;
+                break;
+            }
+            case "left": {
+                if (CreateMap.idMap[(y + 4) / Sprite.SCALED_SIZE][(int) ((x + 4 - speed_x) / Sprite.SCALED_SIZE)].equals("-")
+                && CreateMap.idMap[(y + Sprite.SCALED_SIZE - 4)/ Sprite.SCALED_SIZE][(int) ((x + 4 - speed_x) / Sprite.SCALED_SIZE)].equals("-"))
+                    canMove = true;
+                break;
+            }
+            case "right": {
+                if (CreateMap.idMap[(y + 4) / Sprite.SCALED_SIZE][(int) ((x + Sprite.SCALED_SIZE - 4 + speed_x) / Sprite.SCALED_SIZE)].equals("-")
+                        && CreateMap.idMap[(y + Sprite.SCALED_SIZE - 4)/ Sprite.SCALED_SIZE][(int) ((x + Sprite.SCALED_SIZE - 4 + speed_x) / Sprite.SCALED_SIZE)].equals("-"))
+                    canMove = true;
+                break;
+            }
+            default:
+                break;
+        }
+        if (canMove) {
+            x = (int) (x + speed_x * dirX);
+            y = (int) (y + speed_y * dirY);
+            canMove = false;
+        }
         if (!direction.equals("idle")) {
             loadAnimation();
             stepCount++;
