@@ -20,6 +20,7 @@ public class CreateMap {
   /**
    * constructor.
    */
+  public static String[][] idMap = new String[HEIGHT][WIDTH];
   public CreateMap(String lv) {
     final File file = new File(lv);
 
@@ -39,15 +40,19 @@ public class CreateMap {
             switch(s) {
               case "#": 
                 ett = new Wall(j, i, Sprite.wall.getFxImage());
+                idMap[i][j] = "#";
                 break;
               case "*": 
                 ett = new Brick(j, i, Sprite.brick.getFxImage());
+                idMap[i][j] = "*";
                 break;
               case "x":
                 ett = new Portal(j, i, Sprite.portal.getFxImage());
+                idMap[i][j] = "x";
                 break;
               default:
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
                 break;
             }
             stillObjects.add(ett);
@@ -62,7 +67,7 @@ public class CreateMap {
     }
   }
 
-  public static String[][] IdMap(String lv) {
+  /*public static String[][] IdMap(String lv) {
     final File file = new File(lv);
 
     try (FileReader fr = new FileReader(file)) {
@@ -89,5 +94,5 @@ public class CreateMap {
       // e.printStackTrace();
     }
     return IdMap;
-  }
+  }*/
 }
