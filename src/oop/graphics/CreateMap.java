@@ -6,6 +6,10 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import oop.BombermanGame;
+import oop.entities.Bomb;
+import oop.entities.character.Balloom;
+import oop.entities.character.Bomber;
+import oop.entities.character.Oneal;
 import oop.entities.mapblock.Brick;
 import oop.entities.Entity;
 import oop.entities.mapblock.Grass;
@@ -49,6 +53,24 @@ public class CreateMap {
               case "x":
                 ett = new Portal(j, i, Sprite.portal.getFxImage());
                 idMap[i][j] = "x";
+                break;
+              case "p":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                entities.add(bomberman);
+                break;
+              case "1":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                Entity balloom = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
+                entities.add(balloom);
+                break;
+              case "2":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                Entity oneal = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
+                entities.add(oneal);
                 break;
               default:
                 ett = new Grass(j, i, Sprite.grass.getFxImage());

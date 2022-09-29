@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import oop.entities.Bomb;
 import oop.entities.Entity;
 import oop.graphics.CreateMap;
 import oop.graphics.Sprite;
@@ -13,10 +14,12 @@ import oop.entities.animation.Animation;
 
 import oop.control.Collision;
 
+import static oop.BombermanGame.*;
+
 public class Bomber extends Character {
 
-    public static int getSpeed_y;
-    public static int getSpeed_x;
+    public static double getSpeed_y;
+    public static double getSpeed_x;
     /**
      * direction
      */
@@ -35,32 +38,56 @@ public class Bomber extends Character {
     // private int currStt = Bomber.IDLE;
 
 
-    public Image image;
+    //public Image image;
 
-    private Animation[] sttanm;
+    //private Animation[] sttanm;
 
     /*speed + accel */
     private double speed_x = 1;
+
+    public double getDirX() {
+        return dirX;
+    }
+
+    public void setDirX(double dirX) {
+        this.dirX = dirX;
+    }
+
+    public double getDirY() {
+        return dirY;
+    }
+
+    public void setDirY(double dirY) {
+        this.dirY = dirY;
+    }
+
+    public void setSpeed_x(double speed_x) {
+        this.speed_x = speed_x;
+    }
+
+    public void setSpeed_y(double speed_y) {
+        this.speed_y = speed_y;
+    }
+
     private double speed_y = 1;
 
     final private double accelration = 1.0;
-    final private double max_speed = 7.0;
+    final private double max_speed = 3.0;
 
     private boolean canMove = false;
 
-    //private int step = 0;
-    //private int stepCount = 0;
-    // direction = "right";
+    public static Entity bomb;
+    private final int bomber_time = 6;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
     }
 
-    public Bomber(int xUnit, int yUnit, Image img, String direction, int step, int stepCount) {
-        super(xUnit, yUnit, img, direction, step, stepCount);
+    public Bomber(int xUnit, int yUnit, Image img, String direction, /*int step,*/ int stepCount) {
+        super(xUnit, yUnit, img, direction, /*step,*/ stepCount);
     }
 
-    private void move() {
+    public void move() {
         BombermanGame.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -101,9 +128,14 @@ public class Bomber extends Character {
                         dirY = 0;
                         break;
                     }
+                    case SPACE: {
+                        Bomb.putBomb();
+                        break;
+                    }
                     default:
                         direction = "idle";
                         // currStt = Bomber.IDLE;
+                        break;
 
                 }
 
@@ -122,7 +154,7 @@ public class Bomber extends Character {
         BombermanGame.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 // currStt = Bomber.IDLE;
-                step = 0;
+                stepCount = 0;
                 loadAnimation();
                 direction = "idle";
                 dirX = 0;
@@ -136,7 +168,7 @@ public class Bomber extends Character {
     public void loadAnimation() {
         switch (direction) {
             case "up": {
-                if (step == 0) {
+                /*if (step == 0) {
                     img = Sprite.player_up.getFxImage();
                 }
                 if (step == 1) {
@@ -147,11 +179,13 @@ public class Bomber extends Character {
                 }
                 if (step == 3) {
                     img = Sprite.player_up_2.getFxImage();
-                }
+                }*/
+                Sprite bomber_animation = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, stepCount, bomber_time);
+                img = bomber_animation.getFxImage();
                 break;
             }
             case "down": {
-                if (step == 0) {
+                /*if (step == 0) {
                     img = Sprite.player_down.getFxImage();
                 }
                 if (step == 1) {
@@ -162,11 +196,13 @@ public class Bomber extends Character {
                 } 
                 if (step == 3) {
                     img = Sprite.player_down_2.getFxImage();
-                }
+                }*/
+                Sprite bomber_animation = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, stepCount, bomber_time);
+                img = bomber_animation.getFxImage();
                 break;
             }
             case "left": {
-                if (step == 0) {
+                /*if (step == 0) {
                     img = Sprite.player_left.getFxImage();
                 }
                 if (step == 1) {
@@ -177,11 +213,13 @@ public class Bomber extends Character {
                 }
                 if (step == 3) {
                     img = Sprite.player_left_2.getFxImage();
-                }
+                }*/
+                Sprite bomber_animation = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, stepCount, bomber_time);
+                img = bomber_animation.getFxImage();
                 break;
             }
             case "right": {
-                if (step == 0) {
+                /*if (step == 0) {
                     img = Sprite.player_right.getFxImage();
                 }
                 if (step == 1) {
@@ -192,7 +230,9 @@ public class Bomber extends Character {
                 }
                 if (step == 3) {
                     img = Sprite.player_right_2.getFxImage();
-                }
+                }*/
+                Sprite bomber_animation = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, stepCount, bomber_time);
+                img = bomber_animation.getFxImage();
                 break;
             }
         }
@@ -203,7 +243,6 @@ public class Bomber extends Character {
     public void update() {
 
         move();
-
         if (canMove) {
             x = (int) (x + speed_x * dirX);
             y = (int) (y + speed_y * dirY);
@@ -239,14 +278,14 @@ public class Bomber extends Character {
         if (!direction.equals("idle")) {
             loadAnimation();
             stepCount++;
-            if (stepCount == 4) {
+            /*if (stepCount == 4) {
                 if (step == 3) {
                     step = 0;
                 } else {
                     step++;
                 }
                 stepCount = 0;
-            }
+            }*/
         } else {
             stepCount = 0;
         }

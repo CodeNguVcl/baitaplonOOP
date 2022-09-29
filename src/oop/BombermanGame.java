@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
+import oop.entities.Bomb;
 import oop.entities.character.Balloom;
 import oop.entities.character.Bomber;
 import oop.entities.Entity;
@@ -27,10 +28,13 @@ public class BombermanGame extends Application {
     
     private GraphicsContext gc;
     private Canvas canvas;
-    private final List<Entity> entities = new ArrayList<>();
+    //private final List<Entity> entities = new ArrayList<>();
+    public static final List<Entity> entities = new ArrayList<>();
     public static final List<Entity> stillObjects = new ArrayList<>();
     public static String[][] IdMap;
     public static Scene scene;
+
+    public static Entity bomberman;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -64,12 +68,8 @@ public class BombermanGame extends Application {
         timer.start();
 
         new CreateMap("res/levels/lv1.txt");
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        Entity balloom = new Balloom(13, 1, Sprite.balloom_left1.getFxImage());
-        entities.add(balloom);
     }
+
 
     public void update() {
         entities.forEach(Entity::update);
