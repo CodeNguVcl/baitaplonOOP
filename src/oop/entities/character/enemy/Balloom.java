@@ -1,7 +1,8 @@
-package oop.entities.character;
+package oop.entities.character.enemy;
 
 import javafx.scene.image.Image;
 import oop.control.Collision;
+import oop.entities.character.Character;
 import oop.graphics.Sprite;
 
 import java.util.Random;
