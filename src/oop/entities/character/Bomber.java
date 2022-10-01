@@ -4,17 +4,18 @@ import javafx.event.EventHandler;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import oop.entities.Bomb;
 import oop.entities.Entity;
 import oop.graphics.CreateMap;
 import oop.graphics.Sprite;
 
 import oop.BombermanGame;
-import oop.entities.animation.Animation;
-
+import oop.entities.character.bomb.Bomb;
 import oop.control.Collision;
 
 import static oop.BombermanGame.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends Character {
 
@@ -26,61 +27,28 @@ public class Bomber extends Character {
     private double dirX = 0;
     private double dirY = 0;
 
-    /**
-     * status (up down left right)
-     */
-    // public static final int IDLE = 0;
-    // public static final int DOWN = 1;
-    // public static final int UP = 2;
-    // public static final int LEFT = 3;
-    // public static final int RIGHT = 4;
-    // public static final int DEAD = 5;
-    // private int currStt = Bomber.IDLE;
-
-
-    //public Image image;
-
-    //private Animation[] sttanm;
-
     /*speed + accel */
     private double speed_x = 1;
 
-    public double getDirX() {
-        return dirX;
-    }
-
-    public void setDirX(double dirX) {
-        this.dirX = dirX;
-    }
-
-    public double getDirY() {
-        return dirY;
-    }
-
-    public void setDirY(double dirY) {
-        this.dirY = dirY;
-    }
-
-    public void setSpeed_x(double speed_x) {
-        this.speed_x = speed_x;
-    }
-
-    public void setSpeed_y(double speed_y) {
-        this.speed_y = speed_y;
-    }
+    private final List<Bomb> bombs = new ArrayList<>();
+    private int bombRemain;
 
     private double speed_y = 1;
 
     final private double accelration = 1.0;
-    final private double max_speed = 3.0;
+    final private double max_speed = 5.0;
 
     private boolean canMove = false;
 
     public static Entity bomb;
     private final int bomber_time = 6;
+    private int radius;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
+        setLayer(1);
+        setBombRemain(10000);
+        setRadius(1);
     }
 
     public Bomber(int xUnit, int yUnit, Image img, String direction, /*int step,*/ int stepCount) {
@@ -129,7 +97,7 @@ public class Bomber extends Character {
                         break;
                     }
                     case SPACE: {
-                        Bomb.putBomb();
+                        direction = "space";
                         break;
                     }
                     default:
@@ -235,6 +203,10 @@ public class Bomber extends Character {
                 img = bomber_animation.getFxImage();
                 break;
             }
+            case "space": {
+                putBomb();
+                break;
+            }
         }
     }
 
@@ -270,6 +242,11 @@ public class Bomber extends Character {
                     canMove = true;
                 break;
             }
+            case "space": {
+                putBomb();
+                break;
+            }
+
             default:
                 break;
         }
@@ -291,6 +268,19 @@ public class Bomber extends Character {
         }
     }
 
+    public void putBomb() {
+        if (bombRemain > 0) {
+            int xB = (int) Math.round((x + 4) / (double) Sprite.SCALED_SIZE);
+            int yB = (int) Math.round((y + 4) / (double) Sprite.SCALED_SIZE);
+
+            for (Bomb bomb : bombs) {
+                if (xB * Sprite.SCALED_SIZE == bomb.getX() && yB * Sprite.SCALED_SIZE == bomb.getY()) return;
+            }
+            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), radius));
+            bombRemain--;
+        }
+    }
+
 
     public double getSpeed_x() {
         return this.speed_x;
@@ -298,6 +288,50 @@ public class Bomber extends Character {
 
     public double getSpeed_y() {
         return this.speed_y;
+    }
+
+    public int getBombRemain() {
+        return this.bombRemain;
+    }
+
+    public void setBombRemain(int bombRemain) {
+        this.bombRemain = bombRemain;
+    }
+
+    public double getDirX() {
+        return dirX;
+    }
+
+    public void setDirX(double dirX) {
+        this.dirX = dirX;
+    }
+
+    public double getDirY() {
+        return dirY;
+    }
+
+    public void setDirY(double dirY) {
+        this.dirY = dirY;
+    }
+
+    public void setSpeed_x(double speed_x) {
+        this.speed_x = speed_x;
+    }
+
+    public void setSpeed_y(double speed_y) {
+        this.speed_y = speed_y;
+    }
+
+    public int getRadius() {
+        return this.radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public List<Bomb> getBombs() {
+        return this.bombs;
     }
 }
 

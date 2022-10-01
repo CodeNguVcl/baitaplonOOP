@@ -6,10 +6,10 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import oop.BombermanGame;
-import oop.entities.Bomb;
-import oop.entities.character.Balloom;
 import oop.entities.character.Bomber;
-import oop.entities.character.Oneal;
+import oop.entities.character.bomb.Bomb;
+import oop.entities.character.enemy.Balloom;
+import oop.entities.character.enemy.Oneal;
 import oop.entities.mapblock.Brick;
 import oop.entities.Entity;
 import oop.entities.mapblock.Grass;
@@ -24,7 +24,7 @@ public class CreateMap {
   /**
    * constructor.
    */
-  public static String[][] idMap = new String[HEIGHT][WIDTH];
+  public static String[][] idMap = new String[13][31];
   public CreateMap(String lv) {
     final File file = new File(lv);
 
