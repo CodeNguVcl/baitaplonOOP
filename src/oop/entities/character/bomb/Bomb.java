@@ -10,6 +10,7 @@ import oop.graphics.Sprite;
 import static oop.BombermanGame.bomberman;
 import static oop.BombermanGame.entities;
 import static oop.entities.character.Bomber.bomb;
+import static oop.entities.character.Bomber.bombs;
 
 
 public class Bomb extends Entity {
@@ -24,19 +25,11 @@ public class Bomb extends Entity {
         setLayer(2);
         this.radius = radius;
     }
-
-    public static void putBomb() {
-        int bomb_x = bomberman.getX() / Sprite.SCALED_SIZE;
-        int bomb_y = bomberman.getY() / Sprite.SCALED_SIZE;
-        bomb = new Bomb(bomb_x, bomb_y, Sprite.bomb.getFxImage());
-        
-    }
-
-
     @Override
     public void update() {
         if (timeCount ++ == 120) {
             explodeUpgrade();
+            bombs.remove(this);
         }
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, timeCount, 60).getFxImage();
     }

@@ -30,7 +30,7 @@ public class Bomber extends Character {
     /*speed + accel */
     private double speed_x = 1;
 
-    private final List<Bomb> bombs = new ArrayList<>();
+    public static final List<Bomb> bombs = new ArrayList<>();
     private int bombRemain;
 
     private double speed_y = 1;
