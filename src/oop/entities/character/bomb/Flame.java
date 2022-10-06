@@ -1,8 +1,7 @@
 package oop.entities.character.bomb;
 
 import javafx.scene.image.Image;
-// import javafx.scene.shape.Rectangle;
-import java.awt.*;
+import javafx.scene.shape.Rectangle;
 import oop.BombermanGame;
 import oop.entities.Entity;
 import oop.entities.mapblock.Brick;
@@ -15,7 +14,7 @@ public class Flame extends Entity {
     private int left;
     private int right;
     private int radius;// ban kinh flame
-    private final int size = Sprite.SCALED_SIZE;
+    private final int size = Sprite.SCALED_SIZE - 6;
     private int dir;
     private int time = 0;// thoi gian flame ton tai
 
@@ -113,7 +112,7 @@ public class Flame extends Entity {
 
     private void explosion_Up() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_up = new Rectangle(x, y - size * (i + 1), size, size);
+            Rectangle ex_up = new Rectangle(x + 4, y - size * (i + 1) + 4, size, size);
             if (collisionType(ex_up) instanceof Wall) {
                 up = i;
                 return;
@@ -127,7 +126,7 @@ public class Flame extends Entity {
 
     private void explosion_Down() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_down = new Rectangle(x, y + size * (i + 1), size, size);
+            Rectangle ex_down = new Rectangle(x + 4, y + size * (i + 1) + 4, size, size);
             if (collisionType(ex_down) instanceof Wall) {
                 down = i;
                 return;
@@ -141,7 +140,7 @@ public class Flame extends Entity {
 
     private void explosion_Right() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_right = new Rectangle(x + size * (i + 1), y, size, size);
+            Rectangle ex_right = new Rectangle(x + size * (i + 1) + 4, y + 4, size, size);
             if (collisionType(ex_right) instanceof Wall) {
                 right = i;
                 return;
@@ -155,7 +154,7 @@ public class Flame extends Entity {
 
     private void explosion_Left() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_left = new Rectangle(x - size * (i + 1), y, size, size);
+            Rectangle ex_left = new Rectangle(x - size * (i + 1) + 4, y + 4, size, size);
             if (collisionType(ex_left) instanceof Wall) {
                 left = i;
                 return;
@@ -170,7 +169,7 @@ public class Flame extends Entity {
     private Object collisionType(Rectangle rtg) {
         for (Entity e : BombermanGame.stillObjects) {
             Rectangle rtg2 = e.getBounds();
-            if (rtg.intersects(rtg2)) {
+            if (rtg.intersects(rtg2.getLayoutBounds())) {
                 return e;
             }
         }

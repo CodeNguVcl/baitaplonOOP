@@ -1,8 +1,8 @@
 package oop.entities.character;
 
 import javafx.scene.image.Image;
-// import javafx.scene.shape.Rectangle;
-import java.awt.*;
+import javafx.scene.shape.Rectangle;
+//import java.awt.*;
 import oop.control.Move;
 import oop.entities.Entity;
 import oop.graphics.Sprite;

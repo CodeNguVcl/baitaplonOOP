@@ -63,7 +63,7 @@ public class Balloom extends Enemy {
         .getFxImage();
   }
 
-  public void goLeft() {
+  public void turnLeft() {
     super.turnLeft();
     img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, left++, 18)
         .getFxImage();

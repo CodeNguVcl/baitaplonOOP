@@ -3,8 +3,8 @@ package oop.entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-// import javafx.scene.shape.Rectangle;
-import java.awt.*;
+import javafx.scene.shape.Rectangle;
+//import java.awt.*;
 
 import oop.graphics.Sprite;
 

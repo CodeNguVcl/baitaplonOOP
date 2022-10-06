@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-// import javafx.scene.shape.Rectangle;
-import java.awt.*;
+import javafx.scene.shape.Rectangle;
+//import java.awt.*;
 
 import javafx.stage.Stage;
 import oop.entities.character.Bomber;
@@ -130,7 +130,7 @@ public class BombermanGame extends Application {
 
         for (Entity stillObject : stillObjects) {
             Rectangle r2 = stillObject.getBounds();
-            if (r1.intersects(r2)) {
+            if (r1.intersects(r2.getLayoutBounds())) {
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
                     bomberman.move();
                 } else {
@@ -145,7 +145,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = enm.getBounds();
             for (Entity stillObject : stillObjects) {
                 Rectangle r3 = stillObject.getBounds();
-                if (r2.intersects(r3)) {
+                if (r2.intersects(r3.getLayoutBounds())) {
                     if (enm.getLayer() >= stillObject.getLayer()) {
                         enm.move();
                     } else {

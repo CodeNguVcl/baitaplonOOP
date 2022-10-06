@@ -1,7 +1,9 @@
 package oop.entities.character.enemy;
 
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 import oop.entities.character.Character;
+import oop.graphics.Sprite;
 
 public abstract class Enemy extends Character {
   protected int startX;
@@ -12,6 +14,10 @@ public abstract class Enemy extends Character {
     setLayer(9);
     startX = xUnit;
     startY = yUnit;
+  }
+
+  public Rectangle getBounds() {
+    return new Rectangle(posX + 2, posY + 2, Sprite.SCALED_SIZE - 4, Sprite.SCALED_SIZE - 4);
   }
 
   public abstract void restartEnemy();
