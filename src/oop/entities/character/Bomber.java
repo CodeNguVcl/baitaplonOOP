@@ -3,7 +3,7 @@ package oop.entities.character;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 // import javafx.scene.shape.Rectangle;
-import java.awt.Rectangle;
+import java.awt.*;
 import oop.entities.Entity;
 import oop.graphics.Sprite;
 
@@ -29,7 +29,7 @@ public class Bomber extends Character {
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         setLayer(1);
-        setSpeed(3);
+        setSpeed(2);
         setBombRemain(1);
         setRadius(1);
     }
@@ -58,7 +58,7 @@ public class Bomber extends Character {
 
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
-            if (!bomb.isAlive()) {
+            if (!bomb.isLive()) {
                 bombs.remove(bomb);
                 bombRemain++;
             }
@@ -155,7 +155,7 @@ public class Bomber extends Character {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE - 6);
+        return new Rectangle(posX + 2, posY + 2, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE - 8);
     }
 
     public void setCoordinate(int x, int y) {

@@ -1,7 +1,5 @@
 package oop;
 
-import javax.swing.Spring;
-
 import oop.entities.Entity;
 import oop.graphics.Sprite;
 

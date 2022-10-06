@@ -1,45 +1,82 @@
 package oop.entities.character;
 
 import javafx.scene.image.Image;
+// import javafx.scene.shape.Rectangle;
+import java.awt.*;
+import oop.control.Move;
 import oop.entities.Entity;
+import oop.graphics.Sprite;
 
-public abstract class Character extends Entity {
-    protected String direction = "idle";
-    //protected int step = 0;
-    protected int stepCount = 0;
+public abstract class Character extends Entity implements Move {
+
+    protected int animation = 0;
+
+    protected final int max_animation = 7500;
+
+    protected int posX = x;
+
+    protected int posY = y;
+
+    protected int speed;
+
+    protected int up = 0;
+    protected int down = 0;
+    protected int left = 0;
+    protected int right = 0;
 
     public Character(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
+        live = true;
     }
 
-    public Character(int xUnit, int yUnit, Image img, String direction, /*int step,*/ int stepCount) {
-        super(xUnit, yUnit, img);
-        this.direction = direction;
-        //this.step = step;
-        this.stepCount = stepCount;
+    @Override
+    public void turnUp() {
+        posY = y - speed;
     }
 
-    public String getDirection() {
-        return direction;
+    @Override
+    public void turnDown() {
+        posY = y + speed;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    @Override
+    public void turnLeft() {
+        posX = x - speed;
     }
 
-    /*public int getStep() {
-        return step;
+    @Override
+    public void turnRight() {
+        posX = x + speed;
     }
 
-    public void setStep(int step) {
-        this.step = step;
-    }*/
-
-    public int getStepCount() {
-        return stepCount;
+    public void move() {
+        x = posX;
+        y = posY;
     }
 
-    public void setStepCount(int stepCount) {
-        this.stepCount = stepCount;
+    public void stop() {
+        posX = x;
+        posY = y;
     }
+
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    protected void animate() {
+        if (animation < max_animation) {
+            animation++;
+        } else {
+            animation = 0;
+        }
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(posX, posY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
+
 }

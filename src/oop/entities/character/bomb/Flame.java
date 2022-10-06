@@ -1,7 +1,8 @@
 package oop.entities.character.bomb;
 
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
+// import javafx.scene.shape.Rectangle;
+import java.awt.*;
 import oop.BombermanGame;
 import oop.entities.Entity;
 import oop.entities.mapblock.Brick;
@@ -27,7 +28,7 @@ public class Flame extends Entity {
     public Flame(int x, int y, Image img) {
         super(x, y);
         this.img = img;
-        this.radius = 1;
+        this.radius = 2;
     }
 
     public Flame(int x, int y) {
@@ -57,7 +58,7 @@ public class Flame extends Entity {
 
     }
 
-    //phuong thuc tao vu no(chi ve mat hinh anh)
+    // phuong thuc tao vu no(chi ve mat hinh anh)
     private void create_explosion() {
         BombermanGame.flameList.add(new Flame(x, y, Sprite.bomb_exploded.getFxImage(), 0));
 
@@ -131,7 +132,7 @@ public class Flame extends Entity {
                 down = i;
                 return;
             } else if (collisionType(ex_down) instanceof Brick) {
-                down = i + 1;
+                down = i;
                 return;
             }
             down = i + 1;
@@ -166,11 +167,10 @@ public class Flame extends Entity {
         }
     }
 
-
-    private static Object collisionType(Rectangle rtg) {
+    private Object collisionType(Rectangle rtg) {
         for (Entity e : BombermanGame.stillObjects) {
             Rectangle rtg2 = e.getBounds();
-            if (rtg.intersects(rtg2.getX(), rtg2.getY(), rtg2.getArcWidth(), rtg2.getArcHeight())) {
+            if (rtg.intersects(rtg2)) {
                 return e;
             }
         }
@@ -180,25 +180,33 @@ public class Flame extends Entity {
     public void setImg() {
         switch (dir) {
             case 0:
-                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, time, 20)
+                        .getFxImage();
                 break;
             case 1:
-                img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1,
+                        Sprite.explosion_horizontal2, time, 20).getFxImage();
                 break;
             case 2:
-                img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last,
+                        Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, time, 20)
+                        .getFxImage();
                 break;
             case 3:
-                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1,
+                        Sprite.explosion_horizontal_left_last2, time, 20).getFxImage();
                 break;
             case 4:
-                img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1,
+                        Sprite.explosion_vertical2, time, 20).getFxImage();
                 break;
             case 5:
-                img = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1,
+                        Sprite.explosion_vertical_top_last2, time, 20).getFxImage();
                 break;
             case 6:
-                img = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, time, 20).getFxImage();
+                img = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1,
+                        Sprite.explosion_vertical_down_last2, time, 20).getFxImage();
                 break;
         }
     }

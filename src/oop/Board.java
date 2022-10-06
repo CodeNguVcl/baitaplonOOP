@@ -82,36 +82,36 @@ public class Board {
   }
 
   /** Get flame */
-  public Flame getFlameAt(int x, int y) {
-    Iterator<Bomb> bs = bombs.iterator();
-    Bomb b;
+  // public Flame getFlameAt(int x, int y) {
+  // Iterator<Bomb> bs = bombs.iterator();
+  // Bomb b;
 
-    while (bs.hasNext()) {
-      b = bs.next();
-      Flame e = b.flameAt(x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE);
-      if (e != null) {
-        return e;
-      }
-    }
-    return null;
-  }
+  // while (bs.hasNext()) {
+  // b = bs.next();
+  // Flame e = b.flameAt(x * Sprite.SCALED_SIZE, y * Sprite.SCALED_SIZE);
+  // if (e != null) {
+  // return e;
+  // }
+  // }
+  // return null;
+  // }
 
-  public Entity getEntityAt(int x, int y, Character exceptCharacter) {
-    Entity e = null;
-    e = getFlameAt(x, y);
+  // public Entity getEntityAt(int x, int y, Character exceptCharacter) {
+  // Entity e = null;
+  // e = getFlameAt(x, y);
 
-    if (e != null) {
-      return e;
-    }
+  // if (e != null) {
+  // return e;
+  // }
 
-    e = getBombAt(x, y);
-    if (e != null) {
-      return e;
-    }
+  // e = getBombAt(x, y);
+  // if (e != null) {
+  // return e;
+  // }
 
-    return e;
+  // return e;
 
-  }
+  // }
 
   public void render(GraphicsContext gc) {
     // level.render(gc);

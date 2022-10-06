@@ -6,21 +6,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
 
 // import javafx.scene.shape.Rectangle;
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import javafx.stage.Stage;
 import oop.entities.character.Bomber;
 import oop.entities.character.bomb.Bomb;
 import oop.entities.character.bomb.Flame;
-import oop.entities.mapblock.Brick;
-import oop.entities.mapblock.Grass;
-import oop.entities.mapblock.Portal;
-import oop.entities.mapblock.Wall;
+import oop.entities.character.enemy.Enemy;
 import oop.entities.Entity;
 import oop.graphics.CreateMap;
 // import oop.entities.Grass;
@@ -31,8 +25,6 @@ import oop.graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.sound.sampled.Port;
 
 public class BombermanGame extends Application {
 
@@ -45,15 +37,13 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     // private final List<Entity> entities = new ArrayList<>();
-    public static final List<Entity> entities = new ArrayList<>();// list enemy
+    public static final List<Enemy> enemy = new ArrayList<>();// list enemy
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
     public static final List<Flame> flameList = new ArrayList<>();
     public static String[][] IdMap;
     public static Scene scene;
 
     public static Bomber bomberman;
-
-    private Scanner sc;
 
     public static int level = 1;
 
@@ -63,6 +53,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        new CreateMap(1);
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -92,11 +83,13 @@ public class BombermanGame extends Application {
             bomberman.handleKeyPressed(e.getCode());
         });
         scene.setOnKeyReleased(e -> bomberman.handleKeyReleased(e.getCode()));
-        new CreateMap(1);
     }
 
     public void update() {
-        entities.forEach(Entity::update);
+
+        for (int i = 0; i < enemy.size(); i++) {
+            enemy.get(i).update();
+        }
 
         for (int i = 0; i < flameList.size(); i++) {
             flameList.get(i).update();
@@ -119,6 +112,8 @@ public class BombermanGame extends Application {
             stillObjects.get(i).render(gc);
         }
 
+        enemy.forEach(g -> g.render(gc));
+
         List<Bomb> bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.render(gc);
@@ -128,40 +123,6 @@ public class BombermanGame extends Application {
 
         // entities.forEach(g -> g.render(gc));
         flameList.forEach(g -> g.render(gc));
-    }
-
-    public void load(int _level) {
-        try {
-            sc = new Scanner(new FileReader("res/levels/Level" + _level + ".txt"));
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        sc.nextInt();
-        HEIGHT = sc.nextInt();
-        WIDTH = sc.nextInt();
-        sc.nextLine();
-        createmap();
-    }
-
-    public void createmap() {
-        for (int i = 0; i < HEIGHT; i++) {
-            String s = sc.nextLine();
-            for (int j = 0; j < WIDTH; j++) {
-                if (s.charAt(j) == '#') {
-                    stillObjects.add(new Wall(j, i, Sprite.wall.getFxImage()));
-                } else {
-                    stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
-                    if (s.charAt(j) == '*') {
-                        stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                    }
-                    if (s.charAt(j) == 'x') {
-                        stillObjects.add(new Portal(j, i, Sprite.portal.getFxImage()));
-                    }
-                }
-            }
-        }
-        stillObjects.sort(new Layer());
     }
 
     public void handleCollisions() {
@@ -178,6 +139,21 @@ public class BombermanGame extends Application {
                 break;
             }
 
+        }
+
+        for (Enemy enm : enemy) {
+            Rectangle r2 = enm.getBounds();
+            for (Entity stillObject : stillObjects) {
+                Rectangle r3 = stillObject.getBounds();
+                if (r2.intersects(r3)) {
+                    if (enm.getLayer() >= stillObject.getLayer()) {
+                        enm.move();
+                    } else {
+                        enm.stop();
+                    }
+                    break;
+                }
+            }
         }
     }
 }

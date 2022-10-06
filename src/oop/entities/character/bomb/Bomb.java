@@ -24,7 +24,6 @@ public class Bomb extends Character {
     public void update() {
         if (timeCount++ == 120) {
             explodeUpgrade();
-            // bombs.remove(this);
         }
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, timeCount, 60).getFxImage();
     }
