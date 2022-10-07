@@ -104,6 +104,7 @@ public class BombermanGame extends Application {
             stillObjects.get(i).update();
         }
         handleCollisions();
+        checkExplode();
     }
 
     public void render() {
@@ -126,6 +127,10 @@ public class BombermanGame extends Application {
     }
 
     public void handleCollisions() {
+
+        /**
+         * check va cham bomber voi gach, tuong
+         */
         Rectangle r1 = bomberman.getBounds();
 
         for (Entity stillObject : stillObjects) {
@@ -141,6 +146,9 @@ public class BombermanGame extends Application {
 
         }
 
+        /**
+         * check va cham enemy voi tuong, gach.
+         */
         for (Enemy enm : enemy) {
             Rectangle r2 = enm.getBounds();
             for (Entity stillObject : stillObjects) {
@@ -152,6 +160,21 @@ public class BombermanGame extends Application {
                         enm.stop();
                     }
                     break;
+                }
+            }
+        }
+    }
+
+    /**
+     * bomb no vao tuong.
+     */
+    public void checkExplode() {
+        for (Flame f : flameList) {
+            Rectangle r1 = f.getBounds();
+            for (Entity stillObject : stillObjects) {
+                Rectangle r2 = stillObject.getBounds();
+                if (r1.intersects(r2.getLayoutBounds())) {
+                    stillObject.setLive(false);
                 }
             }
         }

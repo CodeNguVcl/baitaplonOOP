@@ -112,7 +112,7 @@ public class Flame extends Entity {
 
     private void explosion_Up() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_up = new Rectangle(x + 4, y - size * (i + 1) + 4, size, size);
+            Rectangle ex_up = new Rectangle(x + 4, y - size * (i + 1), size, size);
             if (collisionType(ex_up) instanceof Wall) {
                 up = i;
                 return;
@@ -126,35 +126,21 @@ public class Flame extends Entity {
 
     private void explosion_Down() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_down = new Rectangle(x + 4, y + size * (i + 1) + 4, size, size);
+            Rectangle ex_down = new Rectangle(x + 4, y + size * (i + 1), size, size);
             if (collisionType(ex_down) instanceof Wall) {
                 down = i;
                 return;
             } else if (collisionType(ex_down) instanceof Brick) {
-                down = i;
+                down = i + 1;
                 return;
             }
             down = i + 1;
         }
     }
 
-    private void explosion_Right() {
-        for (int i = 0; i < radius; i++) {
-            Rectangle ex_right = new Rectangle(x + size * (i + 1) + 4, y + 4, size, size);
-            if (collisionType(ex_right) instanceof Wall) {
-                right = i;
-                return;
-            } else if (collisionType(ex_right) instanceof Brick) {
-                right = i + 1;
-                return;
-            }
-            right = i + 1;
-        }
-    }
-
     private void explosion_Left() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_left = new Rectangle(x - size * (i + 1) + 4, y + 4, size, size);
+            Rectangle ex_left = new Rectangle(x - size * (i + 1), y + 4, size, size);
             if (collisionType(ex_left) instanceof Wall) {
                 left = i;
                 return;
@@ -163,6 +149,20 @@ public class Flame extends Entity {
                 return;
             }
             left = i + 1;
+        }
+    }
+
+    private void explosion_Right() {
+        for (int i = 0; i < radius; i++) {
+            Rectangle ex_right = new Rectangle(x + size * (i + 1), y + 4, size, size);
+            if (collisionType(ex_right) instanceof Wall) {
+                right = i;
+                return;
+            } else if (collisionType(ex_right) instanceof Brick) {
+                right = i + 1;
+                return;
+            }
+            right = i + 1;
         }
     }
 

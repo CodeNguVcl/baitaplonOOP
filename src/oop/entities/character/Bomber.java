@@ -26,10 +26,13 @@ public class Bomber extends Character {
 
     private int radius;
 
+    private double accelration = 1.0;
+    private double max_speed = 4.0;
+
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         setLayer(1);
-        setSpeed(2);
+        setSpeed(1);
         setBombRemain(1);
         setRadius(1);
     }
@@ -73,6 +76,10 @@ public class Bomber extends Character {
         if (keyCode == KeyCode.SPACE) {
             isPutBomb = true;
         }
+        speed += (int) accelration;
+        if (speed >= max_speed) {
+            speed = (int) max_speed;
+        }
     }
 
     public void handleKeyReleased(KeyCode keyCode) {
@@ -94,6 +101,7 @@ public class Bomber extends Character {
         if (keyCode == KeyCode.SPACE) {
             isPutBomb = false;
         }
+        speed = 1;
     }
 
     public void turnUp() {
