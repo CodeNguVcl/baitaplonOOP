@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
+import oop.BombermanGame;
 import oop.entities.Entity;
 import oop.graphics.Sprite;
 
@@ -39,31 +40,42 @@ public class Bomber extends Character {
 
     @Override
     public void update() {
-        if (direction == KeyCode.UP) {
-            turnUp();
-        }
-
-        if (direction == KeyCode.DOWN) {
-            turnDown();
-        }
-
-        if (direction == KeyCode.LEFT) {
-            turnLeft();
-        }
-
-        if (direction == KeyCode.RIGHT) {
-            turnRight();
-        }
-
-        if (isPutBomb) {
-            putBomb();
-        }
-
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
             if (!bomb.isLive()) {
                 bombs.remove(bomb);
                 bombRemain++;
+            }
+        }
+
+        if (!isLive()) {
+            if (animated < 45) {
+                animated++;
+                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated, 45)
+                        .getFxImage();
+            } else {
+                this.setLive(true);
+                animated = 0;
+            }
+        } else {
+            if (direction == KeyCode.UP) {
+                turnUp();
+            }
+
+            if (direction == KeyCode.DOWN) {
+                turnDown();
+            }
+
+            if (direction == KeyCode.LEFT) {
+                turnLeft();
+            }
+
+            if (direction == KeyCode.RIGHT) {
+                turnRight();
+            }
+
+            if (isPutBomb) {
+                putBomb();
             }
         }
     }

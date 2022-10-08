@@ -74,8 +74,8 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                render();
-                update();
+                    render();
+                    update();
             }
         };
         timer.start();
@@ -143,7 +143,6 @@ public class BombermanGame extends Application {
                 }
                 break;
             }
-
         }
 
         /**
@@ -162,6 +161,27 @@ public class BombermanGame extends Application {
                     break;
                 }
             }
+            for (Bomb bomb : bomberman.getBombs()) {
+                Rectangle r3 = bomb.getBounds();
+                if (r2.intersects(r3.getLayoutBounds())) {
+                    if (enm.getLayer() >= bomb.getLayer()) {
+                        enm.move();
+                    } else {
+                        enm.stop();
+                    }
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Check va cham giua bomberman va enemy
+         */
+        for (Enemy enm : enemy) {
+            Rectangle r2 = enm.getBounds();
+            if (r1.intersects(r2.getLayoutBounds())) {
+                bomberman.setLive(false);
+            }
         }
     }
 
@@ -170,11 +190,22 @@ public class BombermanGame extends Application {
      */
     public void checkExplode() {
         for (Flame f : flameList) {
-            Rectangle r1 = f.getBounds();
+            Rectangle r0 = f.getBounds();
+            Rectangle r1 = new Rectangle(r0.getX() + 2, r0.getY() + 2, r0.getWidth() - 4, r0.getHeight() - 4);
             for (Entity stillObject : stillObjects) {
                 Rectangle r2 = stillObject.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     stillObject.setLive(false);
+                }
+            }
+            Rectangle r3 = bomberman.getBounds();
+            if (r1.intersects(r3.getLayoutBounds())) {
+                bomberman.setLive(false);
+            }
+            for (Entity enemy : enemy) {
+                Rectangle r2 = enemy.getBounds();
+                if (r1.intersects(r2.getLayoutBounds())) {
+                    enemy.setLive(false);
                 }
             }
         }

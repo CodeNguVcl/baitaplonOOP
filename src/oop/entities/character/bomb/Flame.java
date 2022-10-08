@@ -14,7 +14,8 @@ public class Flame extends Entity {
     private int left;
     private int right;
     private int radius;// ban kinh flame
-    private final int size = Sprite.SCALED_SIZE - 6;
+    private final int size = Sprite.SCALED_SIZE - 1;
+    private final int flameSize = Sprite.SCALED_SIZE - 6;
     private int dir;
     private int time = 0;// thoi gian flame ton tai
 
@@ -63,7 +64,7 @@ public class Flame extends Entity {
 
         for (int i = 0; i < up; i++) {
             Flame flm = new Flame(x, y - size * (i + 1));
-            if (i == up - 1) {
+           if (i == up - 1) {
                 flm.img = Sprite.explosion_vertical_top_last.getFxImage();
                 flm.dir = 5;
             } else {
@@ -112,7 +113,7 @@ public class Flame extends Entity {
 
     private void explosion_Up() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_up = new Rectangle(x + 4, y - size * (i + 1), size, size);
+            Rectangle ex_up = new Rectangle(x + 4, y - flameSize * (i + 1), flameSize, flameSize);
             if (collisionType(ex_up) instanceof Wall) {
                 up = i;
                 return;
@@ -126,7 +127,7 @@ public class Flame extends Entity {
 
     private void explosion_Down() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_down = new Rectangle(x + 4, y + size * (i + 1), size, size);
+            Rectangle ex_down = new Rectangle(x + 4, y + flameSize * (i + 1), flameSize, flameSize);
             if (collisionType(ex_down) instanceof Wall) {
                 down = i;
                 return;
@@ -140,7 +141,7 @@ public class Flame extends Entity {
 
     private void explosion_Left() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_left = new Rectangle(x - size * (i + 1), y + 4, size, size);
+            Rectangle ex_left = new Rectangle(x - flameSize * (i + 1), y + 4, flameSize, flameSize);
             if (collisionType(ex_left) instanceof Wall) {
                 left = i;
                 return;
@@ -154,7 +155,7 @@ public class Flame extends Entity {
 
     private void explosion_Right() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_right = new Rectangle(x + size * (i + 1), y + 4, size, size);
+            Rectangle ex_right = new Rectangle(x + flameSize * (i + 1), y + 4, flameSize, flameSize);
             if (collisionType(ex_right) instanceof Wall) {
                 right = i;
                 return;
