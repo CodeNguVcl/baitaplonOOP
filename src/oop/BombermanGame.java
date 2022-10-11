@@ -16,6 +16,11 @@ import oop.entities.character.bomb.Bomb;
 import oop.entities.character.bomb.Flame;
 import oop.entities.character.enemy.Enemy;
 import oop.entities.Entity;
+import oop.entities.item.BombItem;
+import oop.entities.item.FlameItem;
+import oop.entities.item.Item;
+import oop.entities.item.SpeedItem;
+import oop.entities.mapblock.Portal;
 import oop.graphics.CreateMap;
 // import oop.entities.Grass;
 // import oop.entities.Wall;
@@ -151,6 +156,23 @@ public class BombermanGame extends Application {
         for (Entity stillObject : stillObjects) {
             Rectangle r2 = stillObject.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
+                if (stillObject instanceof Item) {
+                    if (stillObject instanceof BombItem) {
+                        bomberman.setBombRemain(bomberman.getBombRemain() + 1);
+                        stillObjects.remove(stillObject);
+                    } else if (stillObject instanceof SpeedItem) {
+                        bomberman.setSpeed(bomberman.getSpeed() + 1);
+                        stillObjects.remove(stillObject);
+                    } else if (stillObject instanceof FlameItem) {
+                        bomberman.setRadius(bomberman.getRadius() + 1);
+                        stillObjects.remove(stillObject);
+                    }
+                }
+                if (stillObject instanceof Portal) {
+                    if (enemy.size() == 0) {
+                        level++;
+                    }
+                }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
                     bomberman.move();
                 } else {

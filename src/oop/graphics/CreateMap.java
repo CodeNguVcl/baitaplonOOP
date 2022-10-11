@@ -14,6 +14,9 @@ import oop.entities.character.enemy.Balloom;
 import oop.entities.character.enemy.Enemy;
 // import oop.entities.character.enemy.Balloom;
 import oop.entities.character.enemy.Oneal;
+import oop.entities.item.BombItem;
+import oop.entities.item.FlameItem;
+import oop.entities.item.SpeedItem;
 import oop.entities.mapblock.Brick;
 import oop.entities.Entity;
 import oop.entities.mapblock.Grass;
@@ -81,6 +84,24 @@ public class CreateMap {
                 idMap[i][j] = "-";
                 Enemy oneal = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
                 enemy.add(oneal);
+                break;
+              case "b":
+                stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                stillObjects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
+                stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                idMap[i][j] = "*";
+                break;
+              case "f":
+                stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                stillObjects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                idMap[i][j] = "*";
+                break;
+              case "s":
+                stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                stillObjects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+                stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                idMap[i][j] = "*";
                 break;
               default:
                 ett = new Grass(j, i, Sprite.grass.getFxImage());

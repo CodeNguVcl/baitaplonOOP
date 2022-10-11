@@ -17,7 +17,7 @@ public abstract class Enemy extends Character {
   }
 
   public Rectangle getBounds() {
-    return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE - 6, Sprite.SCALED_SIZE - 6);
+    return new Rectangle(posX + 2, posY + 2, Sprite.SCALED_SIZE - 4, Sprite.SCALED_SIZE - 4);
   }
 
   public abstract void restartEnemy();

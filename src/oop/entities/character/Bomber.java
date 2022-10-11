@@ -49,12 +49,13 @@ public class Bomber extends Character {
         }
 
         if (!isLive()) {
-            if (animated < 45) {
+            if (animated < 120) {
                 animated++;
-                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated, 45)
+                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated, 120)
                         .getFxImage();
             } else {
                 this.setLive(true);
+                img = Sprite.player_right.getFxImage();
                 animated = 0;
             }
         } else {
@@ -175,7 +176,7 @@ public class Bomber extends Character {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(posX + 6, posY + 6, Sprite.SCALED_SIZE - 16, Sprite.SCALED_SIZE - 10);
+        return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE - 16, Sprite.SCALED_SIZE - 10);
     }
 
     public void setCoordinate(int x, int y) {
