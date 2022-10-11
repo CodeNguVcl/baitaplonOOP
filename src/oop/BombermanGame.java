@@ -30,6 +30,10 @@ public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
+    public static int HEIGHT_MENU = 1;
+
+    public static int w = 15;
+    public static int h = 13;
 
     public int tranX = 0;
     public int tranY = 0;
@@ -61,6 +65,8 @@ public class BombermanGame extends Application {
 
         // Tao root container
         Group root = new Group();
+        root.setClip(new Rectangle(Sprite.SCALED_SIZE * (WIDTH / 2),
+                Sprite.SCALED_SIZE * (HEIGHT + HEIGHT_MENU)));
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -74,8 +80,8 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                    render();
-                    update();
+                render();
+                update();
             }
         };
         timer.start();
@@ -103,6 +109,7 @@ public class BombermanGame extends Application {
         for (int i = 0; i < stillObjects.size(); i++) {
             stillObjects.get(i).update();
         }
+        updateCanvas();
         handleCollisions();
         checkExplode();
     }
@@ -124,6 +131,14 @@ public class BombermanGame extends Application {
 
         // entities.forEach(g -> g.render(gc));
         flameList.forEach(g -> g.render(gc));
+    }
+
+    // camera
+    public void updateCanvas() {
+        if (-1 * bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4) <= 0 && -1 * bomberman.getX()
+                + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)) {
+            canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
+        }
     }
 
     public void handleCollisions() {
