@@ -54,7 +54,7 @@ public class BombermanGame extends Application {
 
     public static Bomber bomberman;
 
-    public static int level = 1;
+    public CreateMap map;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -62,7 +62,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        new CreateMap(1);
+        map = new CreateMap();
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -161,16 +161,17 @@ public class BombermanGame extends Application {
                         bomberman.setBombRemain(bomberman.getBombRemain() + 1);
                         stillObjects.remove(stillObject);
                     } else if (stillObject instanceof SpeedItem) {
-                        bomberman.setSpeed(bomberman.getSpeed() + 1);
+                        // bomberman.setSpeed(bomberman.getSpeed() + 4);
+                        bomberman.setAccelration(bomberman.getAccelration() + 1);
                         stillObjects.remove(stillObject);
                     } else if (stillObject instanceof FlameItem) {
-                        bomberman.setRadius(bomberman.getRadius() + 1);
+                        bomberman.setFlameRadius(bomberman.getFlameRadius() + 1);
                         stillObjects.remove(stillObject);
                     }
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
-                        level++;
+                        map.nextLevel();
                     }
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {

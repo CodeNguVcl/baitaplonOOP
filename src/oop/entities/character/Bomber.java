@@ -25,17 +25,20 @@ public class Bomber extends Character {
 
     public static Entity bomb;
 
-    private int radius;
+    private int flameRadius;
 
-    private double accelration = 1.0;
-    private double max_speed = 4.0;
+    private double accelration;
+    private double bomber_speed = 2.0;
+
+    private double max_speed = 6.0;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         setLayer(1);
-        setSpeed(1);
+        setSpeed((int) bomber_speed);
+        setAccelration(0);
         setBombRemain(1);
-        setRadius(1);
+        setFlameRadius(1);
     }
 
     @Override
@@ -89,7 +92,7 @@ public class Bomber extends Character {
         if (keyCode == KeyCode.SPACE) {
             isPutBomb = true;
         }
-        speed += (int) accelration;
+        speed += (int) getAccelration();
         if (speed >= max_speed) {
             speed = (int) max_speed;
         }
@@ -114,7 +117,7 @@ public class Bomber extends Character {
         if (keyCode == KeyCode.SPACE) {
             isPutBomb = false;
         }
-        speed = 1;
+        speed = (int) bomber_speed;
     }
 
     public void turnUp() {
@@ -149,7 +152,7 @@ public class Bomber extends Character {
                 if (xB * Sprite.SCALED_SIZE == bomb.getX() && yB * Sprite.SCALED_SIZE == bomb.getY())
                     return;
             }
-            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), radius));
+            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), flameRadius));
             bombRemain--;
             System.out.println(bombRemain);
         }
@@ -163,16 +166,24 @@ public class Bomber extends Character {
         this.bombRemain = bombRemain;
     }
 
-    public int getRadius() {
-        return this.radius;
+    public int getFlameRadius() {
+        return this.flameRadius;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public void setFlameRadius(int radius) {
+        this.flameRadius = radius;
     }
 
     public List<Bomb> getBombs() {
         return bombs;
+    }
+
+    public double getAccelration() {
+        return this.accelration;
+    }
+
+    public void setAccelration(double accelration) {
+        this.accelration = accelration;
     }
 
     public Rectangle getBounds() {
