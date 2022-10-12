@@ -6,7 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.control.Button;
+import javafx.scene.effect.BlurType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
 
@@ -27,9 +31,9 @@ import oop.graphics.CreateMap;
 import oop.graphics.Sprite;
 // import oop.graphics.CreateMap;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BombermanGame extends Application {
 
@@ -39,9 +43,6 @@ public class BombermanGame extends Application {
 
     public static int w = 15;
     public static int h = 13;
-
-    public int tranX = 0;
-    public int tranY = 0;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -55,7 +56,12 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
 
     public CreateMap map;
+
+    public static Stage gameStage;
+
     public int level = 1;
+
+    public static int time_init;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -63,6 +69,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+
         map = new CreateMap(level);
 
         // Tao Canvas
@@ -71,8 +78,8 @@ public class BombermanGame extends Application {
 
         // Tao root container
         Group root = new Group();
-        root.setClip(new Rectangle(Sprite.SCALED_SIZE * (WIDTH / 2),
-                Sprite.SCALED_SIZE * (HEIGHT + HEIGHT_MENU)));
+        root.setClip(new Rectangle(Sprite.SCALED_SIZE * w,
+                Sprite.SCALED_SIZE * (h + HEIGHT_MENU)));
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -172,7 +179,7 @@ public class BombermanGame extends Application {
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
-                        level++;
+                        ++level;
                     }
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
@@ -248,5 +255,17 @@ public class BombermanGame extends Application {
                 }
             }
         }
+    }
+
+    public static Button createButton(String src, int x, int y, String bgColor) {
+        InputStream inputStream = BombermanGame.class.getResourceAsStream(src);
+        Image img = new Image(inputStream);
+        ImageView imageView = new ImageView(img);
+        Button button = new Button("", imageView);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setStyle("-fx-background-color: #" + bgColor + "; ");
+
+        return button;
     }
 }

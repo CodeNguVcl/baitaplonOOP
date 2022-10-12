@@ -15,7 +15,7 @@ public class Flame extends Entity {
     private int right;
     private int radius;// ban kinh flame
     private final int size = Sprite.SCALED_SIZE - 1;
-    private final int flameSize = Sprite.SCALED_SIZE - 6;
+    private final int flameSize = Sprite.SCALED_SIZE * 3 / 4;
     private int dir;
     private int time = 0;// thoi gian flame ton tai
 
@@ -64,7 +64,7 @@ public class Flame extends Entity {
 
         for (int i = 0; i < up; i++) {
             Flame flm = new Flame(x, y - size * (i + 1));
-           if (i == up - 1) {
+            if (i == up - 1) {
                 flm.img = Sprite.explosion_vertical_top_last.getFxImage();
                 flm.dir = 5;
             } else {

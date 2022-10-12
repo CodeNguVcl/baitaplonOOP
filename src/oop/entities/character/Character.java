@@ -19,10 +19,10 @@ public abstract class Character extends Entity implements Move {
 
     protected int speed;
 
-    protected int up = 0;
-    protected int down = 0;
-    protected int left = 0;
-    protected int right = 0;
+    // protected int up = 0;
+    // protected int down = 0;
+    // protected int left = 0;
+    // protected int right = 0;
 
     public Character(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);

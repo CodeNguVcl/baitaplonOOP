@@ -6,13 +6,11 @@ import oop.BombermanGame;
 import oop.entities.character.enemy.ai.Astar;
 import oop.graphics.Sprite;
 
-import java.util.Random;
-
 import static oop.BombermanGame.bomberman;
 
 public class Oneal extends Enemy {
     private int direction;
-    //private boolean moving = true;
+    // private boolean moving = true;
     public Astar pathFinder = new Astar();
 
     public Oneal(int xUnit, int yUnit, Image img) {
@@ -41,7 +39,8 @@ public class Oneal extends Enemy {
                 direction = 0;
             else if (direction == 2)
                 direction = 3;
-            else direction = 2;
+            else
+                direction = 2;
         }
     }
 
@@ -72,25 +71,25 @@ public class Oneal extends Enemy {
 
     public void turnUp() {
         super.turnUp();
-        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, up++, 18)
+        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnDown() {
         super.turnDown();
-        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, right++, 18)
+        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnLeft() {
         super.turnLeft();
-        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, left++, 18)
+        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnRight() {
         super.turnRight();
-        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, right++, 18)
+        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animation++, 18)
                 .getFxImage();
     }
 

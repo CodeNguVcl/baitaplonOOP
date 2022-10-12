@@ -8,7 +8,6 @@ import static oop.BombermanGame.HEIGHT;
 import static oop.BombermanGame.WIDTH;
 import static oop.graphics.CreateMap.idMap;
 
-
 public class Astar {
     Node[][] nodes;
     Node start, goal, current;
@@ -31,8 +30,8 @@ public class Astar {
     }
 
     public void resetNodes() {
-        int row = 0;
-        int col = 0;
+        // int row = 0;
+        // int col = 0;
         goalReached = false;
         step = 0;
         openList.clear();
@@ -55,15 +54,15 @@ public class Astar {
 
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-               if (Objects.equals(idMap[i][j], "#") || Objects.equals(idMap[i][j], "*")) {
-                   nodes[i][j].solid = true;
-               }
-               getCost(nodes[i][j]);
+                if (Objects.equals(idMap[i][j], "#") || Objects.equals(idMap[i][j], "*")) {
+                    nodes[i][j].solid = true;
+                }
+                getCost(nodes[i][j]);
             }
         }
     }
 
-    public void getCost (Node node) {
+    public void getCost(Node node) {
         int xDis = Math.abs(node.col - start.col);
         int yDis = Math.abs(node.row - start.row);
         node.gCost = xDis + yDis;
@@ -124,7 +123,7 @@ public class Astar {
 
     public void trackPath() {
         Node cur = goal;
-        while(cur != start) {
+        while (cur != start) {
             path.add(0, cur);
             cur = cur.parent;
         }

@@ -12,7 +12,7 @@ public class Balloom extends Enemy {
   public Balloom(int xUnit, int yUnit, Image img) {
     super(xUnit, yUnit, img);
     setLayer(1);
-    setSpeed(1);
+    setSpeed(Sprite.SCALE / 2);
     generateDirection();
     live = true;
   }
@@ -53,25 +53,25 @@ public class Balloom extends Enemy {
 
   public void turnUp() {
     super.turnUp();
-    img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, up++, 18)
+    img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animation++, 18)
         .getFxImage();
   }
 
   public void turnDown() {
     super.turnDown();
-    img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, right++, 18)
+    img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animation++, 18)
         .getFxImage();
   }
 
   public void turnLeft() {
     super.turnLeft();
-    img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, left++, 18)
+    img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animation++, 18)
         .getFxImage();
   }
 
   public void turnRight() {
     super.turnRight();
-    img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, right++, 18)
+    img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animation++, 18)
         .getFxImage();
   }
 
@@ -80,7 +80,5 @@ public class Balloom extends Enemy {
     super.stop();
     generateDirection();
   }
-
-
 
 }

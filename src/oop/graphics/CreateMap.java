@@ -5,11 +5,9 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import javafx.util.converter.IntegerStringConverter;
-import oop.BombermanGame;
 import oop.Layer;
 import oop.entities.character.Bomber;
-import oop.entities.character.bomb.Bomb;
+
 import oop.entities.character.enemy.Balloom;
 import oop.entities.character.enemy.Enemy;
 // import oop.entities.character.enemy.Balloom;
@@ -31,7 +29,7 @@ public class CreateMap {
 
   private int level;
 
-  public static String[][] idMap = new String[13][31];
+  public static String[][] idMap = new String[HEIGHT][WIDTH];
 
   public CreateMap(int level) {
     this.level = level;

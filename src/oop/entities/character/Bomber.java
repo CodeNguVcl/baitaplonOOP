@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
-import oop.BombermanGame;
+
 import oop.entities.Entity;
 import oop.graphics.Sprite;
 
@@ -28,9 +28,9 @@ public class Bomber extends Character {
     private int flameRadius;
 
     private double accelration;
-    private double bomber_speed = 2.0;
+    private double bomber_speed = (double) Sprite.SCALE;
 
-    private double max_speed = 6.0;
+    private double max_speed = (double) Sprite.SCALE * 3;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -122,24 +122,25 @@ public class Bomber extends Character {
 
     public void turnUp() {
         super.turnUp();
-        img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 20).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animation++, 20)
+                .getFxImage();
     }
 
     public void turnDown() {
         super.turnDown();
-        img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 20)
+        img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animation++, 20)
                 .getFxImage();
     }
 
     public void turnLeft() {
         super.turnLeft();
-        img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 20)
+        img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animation++, 20)
                 .getFxImage();
     }
 
     public void turnRight() {
         super.turnRight();
-        img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 20)
+        img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animation++, 20)
                 .getFxImage();
     }
 
@@ -187,7 +188,7 @@ public class Bomber extends Character {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE - 16, Sprite.SCALED_SIZE - 10);
+        return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE / 2, Sprite.SCALED_SIZE * 5 / 8);
     }
 
     public void setCoordinate(int x, int y) {
