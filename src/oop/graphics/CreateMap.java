@@ -30,21 +30,12 @@ public class CreateMap {
   public static Entity ett;
 
   private int level;
-  private int max_level;
 
   public static String[][] idMap = new String[13][31];
 
-  public CreateMap() {
-    this.level = 1;
+  public CreateMap(int level) {
+    this.level = level;
     readTileMap();
-  }
-
-  public void nextLevel() {
-    if (this.level < max_level) {
-      this.level++;
-    } else {
-      this.level = 1;
-    }
   }
 
   public int getLevel() {

@@ -55,6 +55,7 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
 
     public CreateMap map;
+    public int level = 1;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -62,7 +63,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        map = new CreateMap();
+        map = new CreateMap(level);
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -171,7 +172,7 @@ public class BombermanGame extends Application {
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
-                        map.nextLevel();
+                        level++;
                     }
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
