@@ -29,6 +29,7 @@ import oop.graphics.CreateMap;
 // import oop.entities.Grass;
 // import oop.entities.Wall;
 import oop.graphics.Sprite;
+import oop.sound.Sound;
 // import oop.graphics.CreateMap;
 
 import java.io.InputStream;
@@ -71,6 +72,7 @@ public class BombermanGame extends Application {
     public void start(Stage stage) {
 
         map = new CreateMap(level);
+        Sound.play("background");
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -165,6 +167,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = stillObject.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
                 if (stillObject instanceof Item) {
+                    Sound.play("itemCollected");
                     if (stillObject instanceof BombItem) {
                         bomberman.setBombRemain(bomberman.getBombRemain() + 1);
                         stillObjects.remove(stillObject);
@@ -179,6 +182,7 @@ public class BombermanGame extends Application {
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
+                        Sound.play("levelUp");
                         ++level;
                     }
                 }
@@ -227,6 +231,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
                 bomberman.setLive(false);
+                Sound.play("bomberDie");
             }
         }
     }
@@ -247,11 +252,13 @@ public class BombermanGame extends Application {
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
                 bomberman.setLive(false);
+                Sound.play("bomberDie");
             }
             for (Entity enemy : enemy) {
                 Rectangle r2 = enemy.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     enemy.setLive(false);
+                    Sound.play("enemyDie");
                 }
             }
         }

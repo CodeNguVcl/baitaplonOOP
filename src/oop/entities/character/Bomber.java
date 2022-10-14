@@ -9,6 +9,7 @@ import oop.entities.Entity;
 import oop.graphics.Sprite;
 
 import oop.entities.character.bomb.Bomb;
+import oop.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class Bomber extends Character {
             } else {
                 this.setLive(true);
                 img = Sprite.player_right.getFxImage();
+                Sound.play("stageStart");
                 animated = 0;
             }
         } else {
@@ -146,6 +148,7 @@ public class Bomber extends Character {
 
     public void putBomb() {
         if (bombRemain > 0) {
+            Sound.play("bombPut");
             int xB = (int) Math.round((x + 4) / (double) Sprite.SCALED_SIZE);
             int yB = (int) Math.round((y + 4) / (double) Sprite.SCALED_SIZE);
 
