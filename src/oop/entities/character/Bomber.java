@@ -44,8 +44,6 @@ public class Bomber extends Character {
 
     @Override
     public void update() {
-        System.out.println(x);
-        System.out.println(y);
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
             if (!bomb.isLive()) {
@@ -163,7 +161,6 @@ public class Bomber extends Character {
             Sound.play("bombPut");
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), flameRadius));
             bombRemain--;
-            System.out.println(bombRemain);
         }
     }
 

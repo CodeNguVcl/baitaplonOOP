@@ -153,6 +153,8 @@ public class BombermanGame extends Application {
         if (-1 * bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4) <= 0 && -1 * bomberman.getX()
                 + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)) {
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
+        } else if (bomberman.getX() == 48){
+            canvas.setLayoutX(0);
         }
     }
 

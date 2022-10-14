@@ -77,6 +77,7 @@ public class CreateMap {
               case "x":
                 ett = new Portal(j, i, Sprite.portal.getFxImage());
                 idMap[i][j] = "x";
+                stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                 break;
               case "p":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());

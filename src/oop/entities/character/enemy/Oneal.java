@@ -6,10 +6,13 @@ import oop.BombermanGame;
 import oop.entities.character.enemy.ai.Astar;
 import oop.graphics.Sprite;
 
+import java.util.Random;
+
 import static oop.BombermanGame.bomberman;
 
 public class Oneal extends Enemy {
     private int direction;
+    private int lastDirection;
     // private boolean moving = true;
     public Astar pathFinder = new Astar();
 
@@ -33,7 +36,7 @@ public class Oneal extends Enemy {
         int goalRow = (int) r1.getY() / Sprite.SCALED_SIZE;
         findPath(goalCol, goalRow);
         if (!bomberman.isLive()) {
-            findPath(29,11);
+            findPath(29, 11);
         }
     }
 
@@ -41,6 +44,9 @@ public class Oneal extends Enemy {
     public void update() {
         if (isLive()) {
             generateDirection();
+            if (direction != lastDirection) {
+                generateSpeed();
+            }
             if (direction == 0) {
                 turnUp();
             }
@@ -53,6 +59,7 @@ public class Oneal extends Enemy {
             if (direction == 3) {
                 turnRight();
             }
+            lastDirection = direction;
         } else if (animated < 30) {
             animated++;
             img = Sprite.oneal_dead.getFxImage();
@@ -90,6 +97,7 @@ public class Oneal extends Enemy {
     public void stop() {
         super.stop();
         generateDirection();
+        generateSpeed();
     }
 
     public void findPath(int goalCol, int goalRow) {
@@ -115,5 +123,10 @@ public class Oneal extends Enemy {
                 }
             }
         }
+    }
+
+    public void generateSpeed() {
+        Random r = new Random();
+        setSpeed(1 + r.nextInt(4));
     }
 }

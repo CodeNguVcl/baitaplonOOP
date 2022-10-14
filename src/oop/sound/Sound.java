@@ -14,7 +14,8 @@ public class Sound {
     private static long lastTime;
     public static void play(String sound) {
         currentTime = System.currentTimeMillis();
-        if (Objects.equals(sound, "bombPut") || !Objects.equals(sound, lastSound)) {
+        if (Objects.equals(sound, "bombPut") || Objects.equals(sound, "bombExploded")
+                || !Objects.equals(sound, lastSound)) {
             //new Thread(new Runnable() {
             //public void run() {
             File audioFile = new File("res/sound/" + sound + ".wav");
