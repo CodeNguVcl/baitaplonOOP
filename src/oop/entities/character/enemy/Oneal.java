@@ -33,14 +33,7 @@ public class Oneal extends Enemy {
         int goalRow = (int) r1.getY() / Sprite.SCALED_SIZE;
         findPath(goalCol, goalRow);
         if (!bomberman.isLive()) {
-            if (direction == 0)
-                direction = 1;
-            else if (direction == 1)
-                direction = 0;
-            else if (direction == 2)
-                direction = 3;
-            else
-                direction = 2;
+            findPath(29,11);
         }
     }
 

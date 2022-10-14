@@ -44,6 +44,8 @@ public class Bomber extends Character {
 
     @Override
     public void update() {
+        System.out.println(x);
+        System.out.println(y);
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
             if (!bomb.isLive()) {
@@ -53,13 +55,16 @@ public class Bomber extends Character {
         }
 
         if (!isLive()) {
+            direction = null;
+            animated++;
             if (animated < 120) {
-                animated++;
                 img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated, 120)
                         .getFxImage();
             } else {
                 this.setLive(true);
                 img = Sprite.player_right.getFxImage();
+                posX = 48;
+                posY = 48;
                 Sound.play("stageStart");
                 animated = 0;
             }
@@ -148,7 +153,6 @@ public class Bomber extends Character {
 
     public void putBomb() {
         if (bombRemain > 0) {
-            Sound.play("bombPut");
             int xB = (int) Math.round((x + 4) / (double) Sprite.SCALED_SIZE);
             int yB = (int) Math.round((y + 4) / (double) Sprite.SCALED_SIZE);
 
@@ -156,6 +160,7 @@ public class Bomber extends Character {
                 if (xB * Sprite.SCALED_SIZE == bomb.getX() && yB * Sprite.SCALED_SIZE == bomb.getY())
                     return;
             }
+            Sound.play("bombPut");
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), flameRadius));
             bombRemain--;
             System.out.println(bombRemain);
