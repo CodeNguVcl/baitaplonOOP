@@ -4,12 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
-
+import javafx.scene.transform.Scale;
 import oop.entities.Entity;
 import oop.graphics.Sprite;
 
 import oop.entities.character.bomb.Bomb;
-import oop.sound.Sound;
+// import oop.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class Bomber extends Character {
                 img = Sprite.player_right.getFxImage();
                 posX = 48;
                 posY = 48;
-                Sound.play("stageStart");
+                // Sound.play("stageStart");
                 animated = 0;
             }
         } else {
@@ -158,7 +158,7 @@ public class Bomber extends Character {
                 if (xB * Sprite.SCALED_SIZE == bomb.getX() && yB * Sprite.SCALED_SIZE == bomb.getY())
                     return;
             }
-            Sound.play("bombPut");
+            // Sound.play("bombPut");
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), flameRadius));
             bombRemain--;
         }
@@ -193,7 +193,8 @@ public class Bomber extends Character {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(posX + 4, posY + 4, Sprite.SCALED_SIZE / 2, Sprite.SCALED_SIZE * 5 / 8);
+        return new Rectangle(posX + Sprite.SCALE * 2, posY + Sprite.SCALE * 2.5, Sprite.SCALED_SIZE / 2,
+                Sprite.SCALED_SIZE * 5 / 8);
     }
 
     public void setCoordinate(int x, int y) {

@@ -3,7 +3,7 @@ package oop.entities.character.bomb;
 import javafx.scene.image.Image;
 import oop.entities.character.Character;
 import oop.graphics.Sprite;
-import oop.sound.Sound;
+// import oop.sound.Sound;
 
 public class Bomb extends Character {
     private int timeCount = 0;
@@ -24,7 +24,7 @@ public class Bomb extends Character {
     @Override
     public void update() {
         if (timeCount++ == 120) {
-            Sound.play("bombExploded");
+            // Sound.play("bombExploded");
             explodeUpgrade();
         }
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, timeCount, 60).getFxImage();

@@ -6,11 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.BlurType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+
+import javafx.scene.control.ButtonType;
+
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
 
@@ -29,10 +28,10 @@ import oop.graphics.CreateMap;
 // import oop.entities.Grass;
 // import oop.entities.Wall;
 import oop.graphics.Sprite;
-import oop.sound.Sound;
+// import oop.sound.Sound;
 // import oop.graphics.CreateMap;
+import oop.menucontrol.Menu;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +43,8 @@ public class BombermanGame extends Application {
 
     public static int w = 15;
     public static int h = 13;
+
+    public static int chooseScene = -1;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -71,8 +72,8 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
 
+        // Sound.play("background");
         map = new CreateMap(level);
-        Sound.play("background");
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -88,22 +89,46 @@ public class BombermanGame extends Application {
         scene = new Scene(root);
 
         // Them scene vao stage
-        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setScene(Menu.startScene());
 
         stage.show();
+        stage.setTitle("Siuuuuuuuuuuuu");
+        stage.setOnCloseRequest(e -> {
+            e.consume();
+            logout(stage);
+
+        });
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                render();
-                update();
+
+                if (chooseScene >= 0) {
+                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+                    update();
+                    render();
+                    stage.setScene(scene);
+                }
             }
         };
         timer.start();
+
         scene.setOnKeyPressed(e -> {
             bomberman.handleKeyPressed(e.getCode());
         });
         scene.setOnKeyReleased(e -> bomberman.handleKeyReleased(e.getCode()));
+    }
+
+    public void logout(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("CR7");
+        alert.setHeaderText("Shiuuuuuuuuuuuuuuuuuuuuuuuu");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            stage.close();
+        }
     }
 
     public void update() {
@@ -153,7 +178,7 @@ public class BombermanGame extends Application {
         if (-1 * bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4) <= 0 && -1 * bomberman.getX()
                 + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)) {
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
-        } else if (bomberman.getX() == 48){
+        } else if (bomberman.getX() == 48) {
             canvas.setLayoutX(0);
         }
     }
@@ -169,7 +194,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = stillObject.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
                 if (stillObject instanceof Item) {
-                    Sound.play("itemCollected");
+                    // Sound.play("itemCollected");
                     if (stillObject instanceof BombItem) {
                         bomberman.setBombRemain(bomberman.getBombRemain() + 1);
                         stillObjects.remove(stillObject);
@@ -184,7 +209,7 @@ public class BombermanGame extends Application {
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
-                        Sound.play("levelUp");
+                        // Sound.play("levelUp");
                         ++level;
                     }
                 }
@@ -233,7 +258,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
                 bomberman.setLive(false);
-                Sound.play("bomberDie");
+                // Sound.play("bomberDie");
             }
         }
     }
@@ -254,27 +279,15 @@ public class BombermanGame extends Application {
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
                 bomberman.setLive(false);
-                Sound.play("bomberDie");
+                // Sound.play("bomberDie");
             }
             for (Entity enemy : enemy) {
                 Rectangle r2 = enemy.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     enemy.setLive(false);
-                    Sound.play("enemyDie");
+                    // Sound.play("enemyDie");
                 }
             }
         }
-    }
-
-    public static Button createButton(String src, int x, int y, String bgColor) {
-        InputStream inputStream = BombermanGame.class.getResourceAsStream(src);
-        Image img = new Image(inputStream);
-        ImageView imageView = new ImageView(img);
-        Button button = new Button("", imageView);
-        button.setLayoutX(x);
-        button.setLayoutY(y);
-        button.setStyle("-fx-background-color: #" + bgColor + "; ");
-
-        return button;
     }
 }
