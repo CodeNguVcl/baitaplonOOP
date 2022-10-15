@@ -3,24 +3,25 @@ package oop.entities.character.enemy;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import oop.BombermanGame;
+import oop.entities.character.bomb.Bomb;
 import oop.entities.character.enemy.ai.Astar;
 import oop.graphics.Sprite;
 
 import java.util.Random;
 
 import static oop.BombermanGame.bomberman;
+import static oop.entities.character.Bomber.bombs;
 
-public class Oneal extends Enemy {
-    private int lastDirection;
+public class Minvo extends Enemy {
     public Astar pathFinder = new Astar();
 
-    public Oneal(int xUnit, int yUnit, Image img) {
+    public Minvo(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setLayer(1);
-        setSpeed(1);
+        setSpeed(2);
         generateDirection();
         live = true;
-        point = 300;
+        point = 400;
     }
 
     @Override
@@ -33,12 +34,22 @@ public class Oneal extends Enemy {
 
     @Override
     public void generateDirection() {
-        Rectangle r1 = bomberman.getBounds();
-        int goalCol = (int) r1.getX() / Sprite.SCALED_SIZE;
-        int goalRow = (int) r1.getY() / Sprite.SCALED_SIZE;
-        findPath(goalCol, goalRow);
-        if (!bomberman.isLive()) {
-            restartEnemy();
+        if (bombs.size() > 0) {
+            Rectangle b = bombs.get(0).getBounds();
+            int bombCol = (int) b.getX() / Sprite.SCALED_SIZE;
+            int bombRow = (int) b.getY() / Sprite.SCALED_SIZE;
+            findPath(bombCol, bombRow);
+            reverseDirection();
+
+        }
+        else {
+            Rectangle r1 = bomberman.getBounds();
+            int goalRow = (int) r1.getY() / Sprite.SCALED_SIZE;
+            int goalCol = (int) r1.getX() / Sprite.SCALED_SIZE;
+            findPath(goalCol, goalRow);
+            if (!bomberman.isLive()) {
+                restartEnemy();
+            }
         }
     }
 
@@ -46,25 +57,21 @@ public class Oneal extends Enemy {
     public void update() {
         if (isLive()) {
             generateDirection();
-            if (direction != lastDirection) {
-                generateSpeed();
-            }
-            if (direction == 0) {
+            if (direction % 4 == 0 ) {
                 turnUp();
             }
-            if (direction == 1) {
+            if (direction % 4 == 1) {
                 turnDown();
             }
-            if (direction == 2) {
+            if (direction % 4 == 2) {
                 turnLeft();
             }
-            if (direction == 3) {
+            if (direction % 4 == 3) {
                 turnRight();
             }
-            lastDirection = direction;
         } else if (animated < 30) {
             animated++;
-            img = Sprite.oneal_dead.getFxImage();
+            img = Sprite.minvo_dead.getFxImage();
         } else {
             BombermanGame.enemy.remove(this);
         }
@@ -73,33 +80,32 @@ public class Oneal extends Enemy {
 
     public void turnUp() {
         super.turnUp();
-        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animation++, 18)
+        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnDown() {
         super.turnDown();
-        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animation++, 18)
+        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnLeft() {
         super.turnLeft();
-        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animation++, 18)
+        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animation++, 18)
                 .getFxImage();
     }
 
     public void turnRight() {
         super.turnRight();
-        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animation++, 18)
+        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animation++, 18)
                 .getFxImage();
     }
 
     @Override
     public void stop() {
         super.stop();
-        generateDirection();
-        generateSpeed();
+        generateRandomDirection();
     }
 
     public void findPath(int goalCol, int goalRow) {
@@ -127,8 +133,18 @@ public class Oneal extends Enemy {
         }
     }
 
-    public void generateSpeed() {
+    public void generateRandomDirection() {
         Random r = new Random();
-        setSpeed(1 + r.nextInt(4));
+        direction = r.nextInt(4);
+    }
+    public void reverseDirection() {
+        if (direction == 0)
+            direction = 5;
+        else if (direction == 1)
+            direction = 4;
+        else if (direction == 2)
+            direction = 7;
+        else if (direction == 3)
+            direction = 6;
     }
 }

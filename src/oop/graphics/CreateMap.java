@@ -8,10 +8,8 @@ import java.util.StringTokenizer;
 import oop.Layer;
 import oop.entities.character.Bomber;
 
-import oop.entities.character.enemy.Balloom;
-import oop.entities.character.enemy.Enemy;
+import oop.entities.character.enemy.*;
 // import oop.entities.character.enemy.Balloom;
-import oop.entities.character.enemy.Oneal;
 import oop.entities.item.BombItem;
 import oop.entities.item.FlameItem;
 import oop.entities.item.SpeedItem;
@@ -96,6 +94,24 @@ public class CreateMap {
                 idMap[i][j] = "-";
                 Enemy oneal = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
                 enemy.add(oneal);
+                break;
+              case "3":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                Enemy doll = new Doll(j, i, Sprite.doll_left1.getFxImage());
+                enemy.add(doll);
+                break;
+              case "4":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                Enemy kondoria = new Kondoria(j, i, Sprite.kondoria_left1.getFxImage());
+                enemy.add(kondoria);
+                break;
+              case "5":
+                ett = new Grass(j, i, Sprite.grass.getFxImage());
+                idMap[i][j] = "-";
+                Enemy minvo = new Minvo(j, i, Sprite.minvo_left1.getFxImage());
+                enemy.add(minvo);
                 break;
               case "b":
                 stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));

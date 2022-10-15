@@ -9,11 +9,15 @@ public abstract class Enemy extends Character {
   protected int startX;
   protected int startY;
 
+  protected int direction;
+  protected int point;
+
   public Enemy(int xUnit, int yUnit, Image img) {
     super(xUnit, yUnit, img);
     setLayer(9);
     startX = xUnit;
     startY = yUnit;
+    point = 0;
   }
 
   public Rectangle getBounds() {
@@ -24,4 +28,35 @@ public abstract class Enemy extends Character {
 
   public abstract void generateDirection();
 
+  public int getDirection() {
+    return direction;
+  }
+
+  public void setDirection(int direction) {
+    this.direction = direction;
+  }
+
+  public int getStartX() {
+    return startX;
+  }
+
+  public void setStartX(int startX) {
+    this.startX = startX;
+  }
+
+  public int getStartY() {
+    return startY;
+  }
+
+  public void setStartY(int startY) {
+    this.startY = startY;
+  }
+
+  public int getPoint() {
+    return point;
+  }
+
+  public void setPoint(int point) {
+    this.point = point;
+  }
 }

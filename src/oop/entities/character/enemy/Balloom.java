@@ -7,7 +7,6 @@ import oop.BombermanGame;
 import oop.graphics.Sprite;
 
 public class Balloom extends Enemy {
-  private int direction;
 
   public Balloom(int xUnit, int yUnit, Image img) {
     super(xUnit, yUnit, img);
@@ -15,6 +14,7 @@ public class Balloom extends Enemy {
     setSpeed(Sprite.SCALE / 2);
     generateDirection();
     live = true;
+    point = 100;
   }
 
   @Override

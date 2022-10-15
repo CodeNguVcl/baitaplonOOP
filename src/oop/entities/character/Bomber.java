@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 //import java.awt.*;
 import javafx.scene.transform.Scale;
 import oop.entities.Entity;
+import oop.entities.character.enemy.Minvo;
 import oop.graphics.Sprite;
 
 import oop.entities.character.bomb.Bomb;
@@ -13,6 +14,8 @@ import oop.entities.character.bomb.Bomb;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static oop.BombermanGame.enemy;
 
 public class Bomber extends Character {
 
@@ -23,8 +26,6 @@ public class Bomber extends Character {
     private KeyCode direction = null;
 
     private boolean isPutBomb = false;
-
-    public static Entity bomb;
 
     private int flameRadius;
 

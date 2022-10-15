@@ -62,6 +62,7 @@ public class BombermanGame extends Application {
     public static Stage gameStage;
 
     public int level = 1;
+    public static int playerPoint;
 
     public static int time_init;
 
@@ -281,10 +282,11 @@ public class BombermanGame extends Application {
                 bomberman.setLive(false);
                 // Sound.play("bomberDie");
             }
-            for (Entity enemy : enemy) {
-                Rectangle r2 = enemy.getBounds();
+            for (Enemy enm : enemy) {
+                Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
-                    enemy.setLive(false);
+                    enm.setLive(false);
+                    System.out.println(playerPoint);
                     // Sound.play("enemyDie");
                 }
             }
