@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.ButtonType;
-
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
 
@@ -89,6 +89,8 @@ public class BombermanGame extends Application {
         // Tao scene
         scene = new Scene(root);
 
+        Scene pauseScene = Menu.pauseScene();
+
         // Them scene vao stage
         stage.setResizable(false);
         stage.setScene(Menu.startScene());
@@ -106,11 +108,16 @@ public class BombermanGame extends Application {
             public void handle(long l) {
 
                 if (chooseScene >= 0) {
-                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    if (chooseScene % 2 == 0) {
+                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                        update();
+                        render();
+                        stage.setScene(scene);
+                    } else {
+                        stage.setScene(pauseScene);
+                        // tim 1 cai anh pause game nao day
+                    }
 
-                    update();
-                    render();
-                    stage.setScene(scene);
                 }
             }
         };
@@ -118,6 +125,9 @@ public class BombermanGame extends Application {
 
         scene.setOnKeyPressed(e -> {
             bomberman.handleKeyPressed(e.getCode());
+            if (e.getCode() == KeyCode.P) {
+                chooseScene++;
+            }
         });
         scene.setOnKeyReleased(e -> bomberman.handleKeyReleased(e.getCode()));
     }
