@@ -31,6 +31,7 @@ import oop.graphics.Sprite;
 // import oop.sound.Sound;
 // import oop.graphics.CreateMap;
 import oop.menucontrol.Menu;
+import oop.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class BombermanGame extends Application {
     public static int playerPoint;
 
     public static int time_init;
+    public boolean bgMusicIsPlaying;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -73,8 +75,6 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        // Sound.play("background");
         map = new CreateMap(level);
 
         // Tao Canvas
@@ -107,13 +107,17 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-
                 if (chooseScene >= 0) {
                     if (chooseScene % 2 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         update();
                         render();
                         stage.setScene(scene);
+                        if (!bgMusicIsPlaying) {
+                            Sound.stop("menuMusic");
+                            Sound.play("background");
+                            bgMusicIsPlaying = true;
+                        }
                     } else {
                         stage.setScene(pauseScene);
                         // tim 1 cai anh pause game nao day
@@ -208,7 +212,7 @@ public class BombermanGame extends Application {
             // bomber vs item.
             if (r1.intersects(r2.getLayoutBounds())) {
                 if (stillObject instanceof Item) {
-                    // Sound.play("itemCollected");
+                    Sound.play("itemCollected");
                     if (stillObject instanceof BombItem) {
                         bomberman.setBombRemain(bomberman.getBombRemain() + 1);
                         stillObjects.remove(stillObject);
@@ -223,7 +227,7 @@ public class BombermanGame extends Application {
                 }
                 if (stillObject instanceof Portal) {
                     if (enemy.size() == 0) {
-                        // Sound.play("levelUp");
+                        Sound.play("levelUp");
                         ++level;
                     }
                 }
@@ -275,7 +279,7 @@ public class BombermanGame extends Application {
             if (r1.intersects(r2.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
-                // Sound.play("bomberDie");
+                Sound.play("bomberDie");
             }
         }
     }
@@ -300,7 +304,7 @@ public class BombermanGame extends Application {
             if (r1.intersects(r3.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
-                // Sound.play("bomberDie");
+                Sound.play("bomberDie");
             }
 
             // bom no vao enemy.
@@ -308,7 +312,7 @@ public class BombermanGame extends Application {
                 Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     enm.setLive(false);
-                    // Sound.play("enemyDie");
+                    Sound.play("enemyDie");
                 }
             }
         }

@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import oop.graphics.Sprite;
 
 import oop.entities.character.bomb.Bomb;
+import oop.sound.Sound;
 // import oop.sound.Sound;
 
 import java.util.ArrayList;
@@ -51,9 +52,9 @@ public class Bomber extends Character {
         if (!isLive()) {
             direction = null;
             animated++;
-            if (animated < 120) {
+            if (animated < 180) {
                 img = Sprite
-                        .movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated++, 120)
+                        .movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated++, 180)
                         .getFxImage();
             } else {
                 img = Sprite.player_right.getFxImage();
@@ -62,7 +63,7 @@ public class Bomber extends Character {
                 posX = Sprite.SCALED_SIZE;
                 posY = Sprite.SCALED_SIZE;
                 this.setLive(true);
-                // Sound.play("stageStart");
+                Sound.play("stageStart");
                 animated = 0;
             }
         } else {
@@ -158,7 +159,7 @@ public class Bomber extends Character {
                 if (xB * Sprite.SCALED_SIZE == bomb.getX() && yB * Sprite.SCALED_SIZE == bomb.getY())
                     return;
             }
-            // Sound.play("bombPut");
+            Sound.play("bombPut");
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(), flameRadius));
             bombRemain--;
         }
