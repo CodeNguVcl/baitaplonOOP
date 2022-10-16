@@ -56,10 +56,12 @@ public class Bomber extends Character {
                         .movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated++, 120)
                         .getFxImage();
             } else {
-                this.setLive(true);
                 img = Sprite.player_right.getFxImage();
+                this.setX(0);
+                this.setY(0);
                 posX = Sprite.SCALED_SIZE;
                 posY = Sprite.SCALED_SIZE;
+                this.setLive(true);
                 // Sound.play("stageStart");
                 animated = 0;
             }

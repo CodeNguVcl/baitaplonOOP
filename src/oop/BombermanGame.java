@@ -32,7 +32,6 @@ import oop.graphics.Sprite;
 // import oop.graphics.CreateMap;
 import oop.menucontrol.Menu;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class BombermanGame extends Application {
     public static int chooseScene = -1;
 
     private GraphicsContext gc;
-    private Canvas canvas;
+    public static Canvas canvas;
     // private final List<Entity> entities = new ArrayList<>();
     public static final List<Enemy> enemy = new ArrayList<>();// list enemy
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
@@ -189,14 +188,12 @@ public class BombermanGame extends Application {
     // camera
     public void updateCanvas() {
         if (-1 * bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4) <= 0 && -1 * bomberman.getX()
-                + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)) {
+                + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)
+                && bomberman.isLive()) {
 
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
-        } else if (bomberman.isLive()) {
-
-            canvas.setLayoutX(0);
-
         }
+
     }
 
     public void handleCollisions() {
@@ -276,7 +273,7 @@ public class BombermanGame extends Application {
         for (Enemy enm : enemy) {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
-
+                canvas.setLayoutX(0);
                 bomberman.setLive(false);
                 // Sound.play("bomberDie");
             }
@@ -301,6 +298,7 @@ public class BombermanGame extends Application {
             // bom no vao bomber.
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
+                canvas.setLayoutX(0);
                 bomberman.setLive(false);
                 // Sound.play("bomberDie");
             }

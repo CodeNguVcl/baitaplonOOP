@@ -21,7 +21,6 @@ import oop.entities.mapblock.Portal;
 import oop.entities.mapblock.Wall;
 
 import static oop.BombermanGame.*;
-import static oop.entities.character.Bomber.*;
 
 public class CreateMap {
 

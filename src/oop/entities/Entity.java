@@ -46,6 +46,14 @@ public abstract class Entity {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getLayer() {
         return layer;
     }
@@ -55,11 +63,11 @@ public abstract class Entity {
     }
 
     public boolean isLive() {
-        return live;
+        return this.live;
     }
 
-    public void setLive(boolean alive) {
-        this.live = alive;
+    public void setLive(boolean live) {
+        this.live = live;
     }
 
     // tao hit box cho doi tuong, su dung de tham gia cac va cham

@@ -5,7 +5,6 @@ import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -18,7 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import oop.BombermanGame;
 import oop.graphics.Sprite;
-import oop.graphics.SpriteSheet;
 
 public class Menu {
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();

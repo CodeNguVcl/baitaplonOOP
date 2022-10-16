@@ -1,7 +1,5 @@
 package oop.input;
 
-import javafx.scene.input.KeyCode;
-
 public class keyBoard {
 
   private boolean[] keys = new boolean[120];

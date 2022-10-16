@@ -2,10 +2,9 @@ package oop.entities.character.bomb;
 
 import javafx.scene.image.Image;
 import oop.entities.character.Character;
-import oop.entities.character.enemy.Minvo;
+
 import oop.graphics.Sprite;
 
-import static oop.BombermanGame.enemy;
 // import oop.sound.Sound;
 
 public class Bomb extends Character {
