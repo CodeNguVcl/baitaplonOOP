@@ -19,7 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import oop.BombermanGame;
 import oop.graphics.Sprite;
-import oop.sound.Sound;
+// import oop.sound.Sound;
 
 public class Menu {
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
@@ -28,7 +28,7 @@ public class Menu {
 
   // START MENU.
   public static Scene startScene() {
-    Sound.play("menuMusic");
+    // Sound.play("menuMusic");
 
     Button play = new Button("PLAY");
     play.setPrefHeight(Sprite.SCALE * 16);
@@ -43,7 +43,7 @@ public class Menu {
         "-fx-background-color: rgb(96,186,251)");
     play.setOnAction(actionEvent -> {
       // am thanh bam phim o day.
-      Sound.play("menuClicked");
+      // Sound.play("menuClicked");
       BombermanGame.chooseScene = 0;
     });
     play.setOnMouseEntered(mouseEvent -> play.setStyle("-fx-text-fill: #ffffff;" +
@@ -97,7 +97,7 @@ public class Menu {
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.ENTER) {
         // am thanh bam phim o day.
-        Sound.play("menuClicked");
+        // Sound.play("menuClicked");
         BombermanGame.chooseScene = 0;
       }
     });
@@ -119,7 +119,7 @@ public class Menu {
         " -fx-background-color: rgb(10, 2, 1)");
     button.setOnAction(actionEvent -> {
       // them anh thanh vao day.
-      Sound.play("menuEntered");
+      // Sound.play("menuEntered");
       BombermanGame.chooseScene++;
     });
     VBox root = new VBox(t1, button);
@@ -135,7 +135,7 @@ public class Menu {
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.P) {
         // them anh thhanh vao day.
-        Sound.play("menuEntered");
+        // Sound.play("menuEntered");
         BombermanGame.chooseScene++;
       }
     });

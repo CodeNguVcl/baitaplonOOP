@@ -31,7 +31,6 @@ import oop.graphics.Sprite;
 // import oop.sound.Sound;
 // import oop.graphics.CreateMap;
 import oop.menucontrol.Menu;
-import oop.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,6 @@ public class BombermanGame extends Application {
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
     public static final List<Flame> flameList = new ArrayList<>();
     public static List<Bomb> bombs = new ArrayList<>();
-    public static ArrayList<Bomber> characters = new ArrayList<>();
 
     public static String[][] IdMap;
     public static Scene scene;
@@ -118,8 +116,8 @@ public class BombermanGame extends Application {
                         render();
                         stage.setScene(scene);
                         if (!bgMusicIsPlaying) {
-                            Sound.stop("menuMusic");
-                            Sound.play("background");
+                            // Sound.stop("menuMusic");
+                            // Sound.play("background");
                             bgMusicIsPlaying = true;
                         }
                     } else {
@@ -155,10 +153,6 @@ public class BombermanGame extends Application {
 
         for (int i = 0; i < enemy.size(); i++) {
             enemy.get(i).update();
-        }
-
-        for (Bomber bomber : characters) {
-            bomber.update();
         }
 
         for (int i = 0; i < flameList.size(); i++) {
@@ -211,7 +205,6 @@ public class BombermanGame extends Application {
     public void levelUP() {
         if (bomberman.getLife() <= 0) {
             chooseScene = -1;
-            level = 1;
             gameStage.setScene(Menu.win_loseScene(false));
             map = new CreateMap(level);
             CreateMap.nextLevel = false;
@@ -239,14 +232,14 @@ public class BombermanGame extends Application {
         /**
          * check va cham bomber voi gach, tuong
          */
-        Rectangle r1 = bomberman.getBounds();
+        Rectangle r1 = bomberman.getBounds(); // hit box cua bomber
 
         for (Entity stillObject : stillObjects) {
             Rectangle r2 = stillObject.getBounds();
             // bomber vs item.
             if (r1.intersects(r2.getLayoutBounds())) {
                 if (stillObject instanceof Item) {
-                    Sound.play("itemCollected");
+                    // Sound.play("itemCollected");
                     if (stillObject instanceof BombItem) {
                         bomberman.setBombRemain(bomberman.getBombRemain() + 1);
                         stillObjects.remove(stillObject);
@@ -316,7 +309,8 @@ public class BombermanGame extends Application {
             if (r1.intersects(r2.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
-                Sound.play("bomberDie");
+                bomberman.setLife(bomberman.getLife() - 1);
+                // Sound.play("bomberDie");
             }
         }
     }
@@ -341,7 +335,8 @@ public class BombermanGame extends Application {
             if (r1.intersects(r3.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
-                Sound.play("bomberDie");
+                bomberman.setLife(bomberman.getLife() - 1);
+                // Sound.play("bomberDie");
             }
 
             // bom no vao enemy.
@@ -349,7 +344,7 @@ public class BombermanGame extends Application {
                 Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     enm.setLive(false);
-                    Sound.play("enemyDie");
+                    // Sound.play("enemyDie");
                 }
             }
         }

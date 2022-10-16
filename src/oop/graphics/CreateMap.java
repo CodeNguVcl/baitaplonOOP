@@ -28,7 +28,7 @@ public class CreateMap {
 
   private int level;
 
-  public static int max_level = 3;
+  public static int max_level = 2;
   public static boolean nextLevel;
 
   public static String[][] idMap = new String[HEIGHT][WIDTH];
@@ -51,12 +51,6 @@ public class CreateMap {
     BombermanGame.stillObjects.clear();
     BombermanGame.enemy.clear();
     BombermanGame.flameList.clear();
-    BombermanGame.bombs.clear();
-    BombermanGame.characters.clear();
-    if (BombermanGame.bomberman != null && level != 1) {
-      BombermanGame.characters.add(BombermanGame.bomberman);
-    }
-
     Bomber.bombs.clear();
   }
 
