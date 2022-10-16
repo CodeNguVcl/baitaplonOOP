@@ -52,6 +52,8 @@ public class BombermanGame extends Application {
     public static final List<Enemy> enemy = new ArrayList<>();// list enemy
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
     public static final List<Flame> flameList = new ArrayList<>();
+    public static List<Bomb> bombs = new ArrayList<>();
+    public static ArrayList<Bomber> characters = new ArrayList<>();
 
     public static String[][] IdMap;
     public static Scene scene;
@@ -62,7 +64,7 @@ public class BombermanGame extends Application {
 
     public static Stage gameStage;
 
-    public int level = 1;
+    public static int level = 1;
     public static int playerPoint;
 
     public static int time_init;
@@ -73,6 +75,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        gameStage = stage;
 
         // Sound.play("background");
         map = new CreateMap(level);
@@ -93,29 +96,29 @@ public class BombermanGame extends Application {
         Scene pauseScene = Menu.pauseScene();
 
         // Them scene vao stage
-        stage.setResizable(false);
-        stage.setScene(Menu.startScene());
+        gameStage.setResizable(false);
+        gameStage.setScene(Menu.startScene());
 
-        stage.show();
-        stage.setTitle("Siuuuuuuuuuuuu");
-        stage.setOnCloseRequest(e -> {
+        gameStage.show();
+        gameStage.setTitle("Siuuuuuuuuuuuu");
+        gameStage.setOnCloseRequest(e -> {
             e.consume();
-            logout(stage);
+            logout(gameStage);
 
         });
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-
+                levelUP();
                 if (chooseScene >= 0) {
                     if (chooseScene % 2 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         update();
                         render();
-                        stage.setScene(scene);
+                        gameStage.setScene(scene);
                     } else {
-                        stage.setScene(pauseScene);
+                        gameStage.setScene(pauseScene);
                         // tim 1 cai anh pause game nao day
                     }
 
@@ -149,18 +152,23 @@ public class BombermanGame extends Application {
             enemy.get(i).update();
         }
 
+        for (Bomber bomber : characters) {
+            bomber.update();
+        }
+
         for (int i = 0; i < flameList.size(); i++) {
             flameList.get(i).update();
         }
         bomberman.update();
 
-        List<Bomb> bombs = bomberman.getBombs();
+        bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.update(); // updata cac event bomb
         }
         for (int i = 0; i < stillObjects.size(); i++) {
             stillObjects.get(i).update();
         }
+
         updateCanvas();
         handleCollisions();
         checkExplode();
@@ -174,7 +182,6 @@ public class BombermanGame extends Application {
 
         enemy.forEach(g -> g.render(gc));
 
-        List<Bomb> bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.render(gc);
         }
@@ -196,8 +203,34 @@ public class BombermanGame extends Application {
 
     }
 
-    public void handleCollisions() {
+    public void levelUP() {
+        if (bomberman.getLife() <= 0) {
+            chooseScene = -1;
+            level = 1;
+            gameStage.setScene(Menu.win_loseScene(false));
+            map = new CreateMap(level);
+            CreateMap.nextLevel = false;
+            return;
+        }
 
+        if (CreateMap.nextLevel) {
+            chooseScene = -1;
+            level++;
+            if (level > CreateMap.max_level) {
+                level = 1;
+                gameStage.setScene(Menu.win_loseScene(true));
+            } else {
+                bomberman.setLife(bomberman.getLife() + 1);
+            }
+            map = new CreateMap(level);
+            CreateMap.nextLevel = false;
+            gameStage.setScene(Menu.levelScene());
+            canvas.setLayoutX(0);
+        }
+
+    }
+
+    public void handleCollisions() {
         /**
          * check va cham bomber voi gach, tuong
          */
@@ -222,10 +255,14 @@ public class BombermanGame extends Application {
                     }
                 }
                 if (stillObject instanceof Portal) {
-                    if (enemy.size() == 0) {
-                        // Sound.play("levelUp");
-                        ++level;
-                    }
+                    // if (enemy.size() == 0) {
+                    // // Sound.play("levelUp");
+                    // CreateMap.nextLevel = true;
+                    // levelUP();
+                    // }
+                    CreateMap.nextLevel = true;
+                    // levelUP();
+
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
                     bomberman.move();
@@ -275,6 +312,7 @@ public class BombermanGame extends Application {
             if (r1.intersects(r2.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
+                bomberman.setLife(bomberman.getLife() - 1);
                 // Sound.play("bomberDie");
             }
         }
@@ -300,6 +338,7 @@ public class BombermanGame extends Application {
             if (r1.intersects(r3.getLayoutBounds())) {
                 canvas.setLayoutX(0);
                 bomberman.setLive(false);
+                bomberman.setLife(bomberman.getLife() - 1);
                 // Sound.play("bomberDie");
             }
 
