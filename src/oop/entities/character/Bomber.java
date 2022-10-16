@@ -4,9 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 //import java.awt.*;
-import javafx.scene.transform.Scale;
-import oop.entities.Entity;
-import oop.entities.character.enemy.Minvo;
 import oop.graphics.Sprite;
 
 import oop.entities.character.bomb.Bomb;
@@ -14,8 +11,6 @@ import oop.entities.character.bomb.Bomb;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static oop.BombermanGame.enemy;
 
 public class Bomber extends Character {
 
@@ -57,30 +52,31 @@ public class Bomber extends Character {
             direction = null;
             animated++;
             if (animated < 120) {
-                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated, 120)
+                img = Sprite
+                        .movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animated++, 120)
                         .getFxImage();
             } else {
                 this.setLive(true);
                 img = Sprite.player_right.getFxImage();
-                posX = 48;
-                posY = 48;
+                posX = Sprite.SCALED_SIZE;
+                posY = Sprite.SCALED_SIZE;
                 // Sound.play("stageStart");
                 animated = 0;
             }
         } else {
-            if (direction == KeyCode.UP) {
+            if (direction == KeyCode.UP || direction == KeyCode.W) {
                 turnUp();
             }
 
-            if (direction == KeyCode.DOWN) {
+            if (direction == KeyCode.DOWN || direction == KeyCode.S) {
                 turnDown();
             }
 
-            if (direction == KeyCode.LEFT) {
+            if (direction == KeyCode.LEFT || direction == KeyCode.A) {
                 turnLeft();
             }
 
-            if (direction == KeyCode.RIGHT) {
+            if (direction == KeyCode.RIGHT || direction == KeyCode.D) {
                 turnRight();
             }
 
@@ -92,7 +88,8 @@ public class Bomber extends Character {
 
     public void handleKeyPressed(KeyCode keyCode) {
         if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT
-                || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
+                || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN || keyCode == KeyCode.A || keyCode == KeyCode.D
+                || keyCode == KeyCode.W || keyCode == KeyCode.S) {
             this.direction = keyCode;
         }
         if (keyCode == KeyCode.SPACE) {
@@ -106,16 +103,16 @@ public class Bomber extends Character {
 
     public void handleKeyReleased(KeyCode keyCode) {
         if (direction == keyCode) {
-            if (direction == KeyCode.LEFT) {
+            if (direction == KeyCode.LEFT || direction == KeyCode.A) {
                 img = Sprite.player_left.getFxImage();
             }
-            if (direction == KeyCode.RIGHT) {
+            if (direction == KeyCode.RIGHT || direction == KeyCode.D) {
                 img = Sprite.player_right.getFxImage();
             }
-            if (direction == KeyCode.UP) {
+            if (direction == KeyCode.UP || direction == KeyCode.W) {
                 img = Sprite.player_up.getFxImage();
             }
-            if (direction == KeyCode.DOWN) {
+            if (direction == KeyCode.DOWN || direction == KeyCode.S) {
                 img = Sprite.player_down.getFxImage();
             }
             direction = null;

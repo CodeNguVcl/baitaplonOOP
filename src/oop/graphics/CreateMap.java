@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import oop.BombermanGame;
 import oop.Layer;
 import oop.entities.character.Bomber;
 
@@ -20,6 +21,7 @@ import oop.entities.mapblock.Portal;
 import oop.entities.mapblock.Wall;
 
 import static oop.BombermanGame.*;
+import static oop.entities.character.Bomber.*;
 
 public class CreateMap {
 
@@ -31,6 +33,7 @@ public class CreateMap {
 
   public CreateMap(int level) {
     this.level = level;
+    clearMap();
     readTileMap();
   }
 
@@ -40,6 +43,13 @@ public class CreateMap {
 
   public void setLevel(int level) {
     this.level = level;
+  }
+
+  public void clearMap() {
+    BombermanGame.stillObjects.clear();
+    BombermanGame.enemy.clear();
+    BombermanGame.flameList.clear();
+    Bomber.bombs.clear();
   }
 
   public void readTileMap() {

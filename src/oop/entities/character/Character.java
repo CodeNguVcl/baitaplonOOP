@@ -67,6 +67,22 @@ public abstract class Character extends Entity implements Move {
         this.speed = speed;
     }
 
+    public int getPosX() {
+        return this.posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return this.posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
     protected void animate() {
         if (animation < max_animation) {
             animation++;

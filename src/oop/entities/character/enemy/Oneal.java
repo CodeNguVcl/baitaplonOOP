@@ -65,6 +65,8 @@ public class Oneal extends Enemy {
         } else if (animated < 30) {
             animated++;
             img = Sprite.oneal_dead.getFxImage();
+            img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animated, 20)
+                    .getFxImage();
         } else {
             BombermanGame.enemy.remove(this);
         }

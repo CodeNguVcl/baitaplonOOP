@@ -6,8 +6,6 @@ import oop.graphics.Sprite;
 
 import java.util.Random;
 
-import static oop.entities.character.Bomber.bombs;
-
 public class Kondoria extends Enemy {
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -47,6 +45,8 @@ public class Kondoria extends Enemy {
         } else if (animated < 30) {
             animated++;
             img = Sprite.kondoria_dead.getFxImage();
+            img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animated, 20)
+                    .getFxImage();
         } else {
             BombermanGame.enemy.remove(this);
         }
@@ -60,7 +60,8 @@ public class Kondoria extends Enemy {
 
     public void turnDown() {
         super.turnDown();
-        img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animation++, 18)
+        img = Sprite
+                .movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animation++, 18)
                 .getFxImage();
     }
 
@@ -72,7 +73,8 @@ public class Kondoria extends Enemy {
 
     public void turnRight() {
         super.turnRight();
-        img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animation++, 18)
+        img = Sprite
+                .movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animation++, 18)
                 .getFxImage();
     }
 

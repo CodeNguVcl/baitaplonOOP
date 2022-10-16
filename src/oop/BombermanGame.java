@@ -32,6 +32,7 @@ import oop.graphics.Sprite;
 // import oop.graphics.CreateMap;
 import oop.menucontrol.Menu;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static int HEIGHT_MENU = 1;
+    public static int HEIGHT_MENU = 0;
 
     public static int w = 15;
     public static int h = 13;
@@ -52,6 +53,7 @@ public class BombermanGame extends Application {
     public static final List<Enemy> enemy = new ArrayList<>();// list enemy
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
     public static final List<Flame> flameList = new ArrayList<>();
+
     public static String[][] IdMap;
     public static Scene scene;
 
@@ -188,9 +190,12 @@ public class BombermanGame extends Application {
     public void updateCanvas() {
         if (-1 * bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4) <= 0 && -1 * bomberman.getX()
                 + Sprite.SCALED_SIZE * (WIDTH / 4) >= -1 * Sprite.SCALED_SIZE * (WIDTH / 2 + 1)) {
+
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
-        } else if (bomberman.getX() == 48) {
+        } else if (bomberman.isLive()) {
+
             canvas.setLayoutX(0);
+
         }
     }
 
@@ -203,6 +208,7 @@ public class BombermanGame extends Application {
 
         for (Entity stillObject : stillObjects) {
             Rectangle r2 = stillObject.getBounds();
+            // bomber vs item.
             if (r1.intersects(r2.getLayoutBounds())) {
                 if (stillObject instanceof Item) {
                     // Sound.play("itemCollected");
@@ -249,6 +255,8 @@ public class BombermanGame extends Application {
                     break;
                 }
             }
+
+            // check vao cham enemy va bomb.
             for (Bomb bomb : bomberman.getBombs()) {
                 Rectangle r3 = bomb.getBounds();
                 if (r2.intersects(r3.getLayoutBounds())) {
@@ -263,11 +271,12 @@ public class BombermanGame extends Application {
         }
 
         /**
-         * Check va cham giua bomberman va enemy
+         * Check va cham giua bomberman va enemy.
          */
         for (Enemy enm : enemy) {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
+
                 bomberman.setLive(false);
                 // Sound.play("bomberDie");
             }
@@ -275,10 +284,12 @@ public class BombermanGame extends Application {
     }
 
     /**
-     * bomb no vao tuong.
+     * bomb no vao cac doi tuong.
      */
     public void checkExplode() {
+
         for (Flame f : flameList) {
+            // bom no vao tuong.
             Rectangle r0 = f.getBounds();
             Rectangle r1 = new Rectangle(r0.getX() + 2, r0.getY() + 2, r0.getWidth() - 4, r0.getHeight() - 4);
             for (Entity stillObject : stillObjects) {
@@ -287,16 +298,18 @@ public class BombermanGame extends Application {
                     stillObject.setLive(false);
                 }
             }
+            // bom no vao bomber.
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
                 bomberman.setLive(false);
                 // Sound.play("bomberDie");
             }
+
+            // bom no vao enemy.
             for (Enemy enm : enemy) {
                 Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     enm.setLive(false);
-                    System.out.println(playerPoint);
                     // Sound.play("enemyDie");
                 }
             }

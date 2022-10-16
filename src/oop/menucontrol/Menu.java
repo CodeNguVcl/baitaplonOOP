@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import oop.BombermanGame;
 import oop.graphics.Sprite;
+import oop.graphics.SpriteSheet;
 
 public class Menu {
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
@@ -103,11 +104,12 @@ public class Menu {
   public static Scene pauseScene() {
     Text t1 = new Text("PAUSE");
     t1.setFont(
-        Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 50));
-    t1.setFill(Color.WHITESMOKE);
+        Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
+            16 * Sprite.SCALE));
+    t1.setFill(Color.BLUE);
     Button button = new Button("Press P to continue!!!");
-    button.setPrefHeight(50);
-    button.setPrefWidth(400);
+    button.setPrefHeight(16 * Sprite.SCALE);
+    button.setPrefWidth(108 * Sprite.SCALE);
     button.setFont(font);
     button.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-color: rgb(10, 2, 1)");
@@ -117,10 +119,13 @@ public class Menu {
     });
     VBox root = new VBox(t1, button);
     root.setAlignment(Pos.CENTER);
-    root.setSpacing(60);
-    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.WIDTH, Sprite.SCALED_SIZE * BombermanGame.HEIGHT + 50);
-    root.setBackground(new Background(new BackgroundFill(Color.rgb(10, 2, 1), null, null)));
-    root.setStyle("-fx-background-image: url(star.jpg);");
+    root.setSpacing(20 * Sprite.SCALE);
+    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w, Sprite.SCALED_SIZE * BombermanGame.h);
+    root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 2, 1), null, null)));
+    root.setStyle("-fx-background-image: url(pause.png);" +
+        "-fx-background-repeat: no-repeat;" +
+        "-fx-background-position: top left;" +
+        "-fx-background-size: 100% 100%");
     Scene scene = new Scene(root);
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.P) {

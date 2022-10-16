@@ -3,7 +3,6 @@ package oop.entities.character.enemy;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import oop.BombermanGame;
-import oop.entities.character.bomb.Bomb;
 import oop.entities.character.enemy.ai.Astar;
 import oop.graphics.Sprite;
 
@@ -41,8 +40,7 @@ public class Minvo extends Enemy {
             findPath(bombCol, bombRow);
             reverseDirection();
 
-        }
-        else {
+        } else {
             Rectangle r1 = bomberman.getBounds();
             int goalRow = (int) r1.getY() / Sprite.SCALED_SIZE;
             int goalCol = (int) r1.getX() / Sprite.SCALED_SIZE;
@@ -57,7 +55,7 @@ public class Minvo extends Enemy {
     public void update() {
         if (isLive()) {
             generateDirection();
-            if (direction % 4 == 0 ) {
+            if (direction % 4 == 0) {
                 turnUp();
             }
             if (direction % 4 == 1) {
@@ -72,6 +70,8 @@ public class Minvo extends Enemy {
         } else if (animated < 30) {
             animated++;
             img = Sprite.minvo_dead.getFxImage();
+            img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animated, 20)
+                    .getFxImage();
         } else {
             BombermanGame.enemy.remove(this);
         }
@@ -137,6 +137,7 @@ public class Minvo extends Enemy {
         Random r = new Random();
         direction = r.nextInt(4);
     }
+
     public void reverseDirection() {
         if (direction == 0)
             direction = 5;
