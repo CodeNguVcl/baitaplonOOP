@@ -10,7 +10,7 @@ public class Kondoria extends Enemy {
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setLayer(3);
-        setSpeed(4);
+        setSpeed(Sprite.SCALE / 2);
         generateDirection();
         live = true;
         point = 200;

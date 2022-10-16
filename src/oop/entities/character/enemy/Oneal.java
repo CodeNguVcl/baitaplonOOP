@@ -17,7 +17,7 @@ public class Oneal extends Enemy {
     public Oneal(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setLayer(1);
-        setSpeed(1);
+        setSpeed(Sprite.SCALE / 2);
         generateDirection();
         live = true;
         point = 300;

@@ -53,6 +53,8 @@ public class BombermanGame extends Application {
     public static final List<Enemy> enemy = new ArrayList<>();// list enemy
     public static final List<Entity> stillObjects = new ArrayList<>();// thuc the trong game
     public static final List<Flame> flameList = new ArrayList<>();
+    public static List<Bomb> bombs = new ArrayList<>();
+    public static ArrayList<Bomber> characters = new ArrayList<>();
 
     public static String[][] IdMap;
     public static Scene scene;
@@ -63,7 +65,7 @@ public class BombermanGame extends Application {
 
     public static Stage gameStage;
 
-    public int level = 1;
+    public static int level = 1;
     public static int playerPoint;
 
     public static int time_init;
@@ -93,14 +95,14 @@ public class BombermanGame extends Application {
         Scene pauseScene = Menu.pauseScene();
 
         // Them scene vao stage
-        stage.setResizable(false);
-        stage.setScene(Menu.startScene());
+        gameStage.setResizable(false);
+        gameStage.setScene(Menu.startScene());
 
-        stage.show();
-        stage.setTitle("Siuuuuuuuuuuuu");
-        stage.setOnCloseRequest(e -> {
+        gameStage.show();
+        gameStage.setTitle("Siuuuuuuuuuuuu");
+        gameStage.setOnCloseRequest(e -> {
             e.consume();
-            logout(stage);
+            logout(gameStage);
 
         });
 
@@ -119,7 +121,7 @@ public class BombermanGame extends Application {
                             bgMusicIsPlaying = true;
                         }
                     } else {
-                        stage.setScene(pauseScene);
+                        gameStage.setScene(pauseScene);
                         // tim 1 cai anh pause game nao day
                     }
 
@@ -153,18 +155,23 @@ public class BombermanGame extends Application {
             enemy.get(i).update();
         }
 
+        for (Bomber bomber : characters) {
+            bomber.update();
+        }
+
         for (int i = 0; i < flameList.size(); i++) {
             flameList.get(i).update();
         }
         bomberman.update();
 
-        List<Bomb> bombs = bomberman.getBombs();
+        bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.update(); // updata cac event bomb
         }
         for (int i = 0; i < stillObjects.size(); i++) {
             stillObjects.get(i).update();
         }
+
         updateCanvas();
         handleCollisions();
         checkExplode();
@@ -178,7 +185,6 @@ public class BombermanGame extends Application {
 
         enemy.forEach(g -> g.render(gc));
 
-        List<Bomb> bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.render(gc);
         }
@@ -200,8 +206,34 @@ public class BombermanGame extends Application {
 
     }
 
-    public void handleCollisions() {
+    public void levelUP() {
+        if (bomberman.getLife() <= 0) {
+            chooseScene = -1;
+            level = 1;
+            gameStage.setScene(Menu.win_loseScene(false));
+            map = new CreateMap(level);
+            CreateMap.nextLevel = false;
+            return;
+        }
 
+        if (CreateMap.nextLevel) {
+            chooseScene = -1;
+            level++;
+            if (level > CreateMap.max_level) {
+                level = 1;
+                gameStage.setScene(Menu.win_loseScene(true));
+            } else {
+                bomberman.setLife(bomberman.getLife() + 1);
+            }
+            map = new CreateMap(level);
+            CreateMap.nextLevel = false;
+            gameStage.setScene(Menu.levelScene());
+            canvas.setLayoutX(0);
+        }
+
+    }
+
+    public void handleCollisions() {
         /**
          * check va cham bomber voi gach, tuong
          */

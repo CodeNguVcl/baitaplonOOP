@@ -19,6 +19,8 @@ public class Bomber extends Character {
 
     private int bombRemain;
 
+    private int life;
+
     private KeyCode direction = null;
 
     private boolean isPutBomb = false;
@@ -33,6 +35,7 @@ public class Bomber extends Character {
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         setLayer(1);
+        this.life = 2;
         setSpeed((int) bomber_speed);
         setAccelration(0);
         setBombRemain(1);
@@ -191,6 +194,14 @@ public class Bomber extends Character {
 
     public void setAccelration(double accelration) {
         this.accelration = accelration;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
     }
 
     public Rectangle getBounds() {
