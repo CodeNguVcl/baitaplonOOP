@@ -77,6 +77,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        gameStage = stage;
         map = new CreateMap(level);
 
         // Tao Canvas
@@ -109,6 +110,7 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                levelUP();
                 if (chooseScene >= 0) {
                     if (chooseScene % 2 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -258,10 +260,13 @@ public class BombermanGame extends Application {
                     }
                 }
                 if (stillObject instanceof Portal) {
-                    if (enemy.size() == 0) {
-                        Sound.play("levelUp");
-                        ++level;
-                    }
+                    // if (enemy.size() == 0) {
+                    // // Sound.play("levelUp");
+                    // CreateMap.nextLevel = true;
+                    // levelUP();
+                    // }
+                    CreateMap.nextLevel = true;
+                    // levelUP();
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
                     bomberman.move();
