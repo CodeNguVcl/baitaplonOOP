@@ -6,11 +6,13 @@ import oop.graphics.Sprite;
 
 import java.util.Random;
 
+import static oop.BombermanGame.bomberman;
+
 public class Kondoria extends Enemy {
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setLayer(3);
-        setSpeed(Sprite.SCALE / 2);
+        setSpeed(Sprite.SCALE);
         generateDirection();
         live = true;
         point = 200;
@@ -18,7 +20,10 @@ public class Kondoria extends Enemy {
 
     @Override
     public void restartEnemy() {
-
+        x = startX * Sprite.SCALED_SIZE;
+        posX = x;
+        y = startY * Sprite.SCALED_SIZE;
+        posY = y;
     }
 
     @Override
@@ -29,6 +34,9 @@ public class Kondoria extends Enemy {
 
     @Override
     public void update() {
+        if (!bomberman.isLive()) {
+            restartEnemy();
+        }
         if (isLive()) {
             if (direction == 0) {
                 turnUp();

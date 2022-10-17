@@ -265,7 +265,6 @@ public class BombermanGame extends Application {
                     // if (enemy.size() == 0) {
                     // // Sound.play("levelUp");
                     // CreateMap.nextLevel = true;
-                    // levelUP();
                     // }
                     CreateMap.nextLevel = true;
                 }

@@ -36,7 +36,7 @@ public class Bomber extends Character {
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         setLayer(1);
-        this.life = 2;
+        this.life = 5;
         setSpeed((int) bomber_speed);
         setAccelration(0);
         setBombRemain(1);
