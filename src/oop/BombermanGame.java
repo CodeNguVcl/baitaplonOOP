@@ -10,9 +10,11 @@ import javafx.scene.control.Alert;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 //import java.awt.*;
-
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oop.entities.character.Bomber;
 import oop.entities.character.bomb.Bomb;
@@ -34,12 +36,13 @@ import oop.menucontrol.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static int HEIGHT_MENU = 0;
+    public static int HEIGHT_MENU = Sprite.SCALED_SIZE;
 
     public static int w = 15;
     public static int h = 13;
@@ -57,6 +60,8 @@ public class BombermanGame extends Application {
     public static String[][] IdMap;
     public static Scene scene;
 
+    public static Text text;
+
     public static Bomber bomberman;
 
     public CreateMap map;
@@ -67,11 +72,12 @@ public class BombermanGame extends Application {
     public static int playerPoint;
 
     public static int time_init;
-    public boolean bgMusicIsPlaying;
 
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
+    public static final ClassLoader c = ClassLoader.getSystemClassLoader();
+    public static final Font font = Font.loadFont(
+            Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
+            HEIGHT_MENU / 4 * 3);
+    public boolean bgMusicIsPlaying;
 
     @Override
     public void start(Stage stage) {
@@ -79,14 +85,23 @@ public class BombermanGame extends Application {
         map = new CreateMap(level);
 
         // Tao Canvas
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT + HEIGHT_MENU);
         gc = canvas.getGraphicsContext2D();
+
+        Rectangle rect = new Rectangle(0, Sprite.SCALED_SIZE * h, Sprite.SCALED_SIZE * w, HEIGHT_MENU);
+        rect.setFill(Color.BLACK);
+
+        text = new Text();
+        text.setLayoutX(40);
+        text.setLayoutY(Sprite.SCALED_SIZE * h + HEIGHT_MENU / 4 * 3);
+        text.setFill(Color.WHITE);
+        text.setFont(font);
 
         // Tao root container
         Group root = new Group();
         root.setClip(new Rectangle(Sprite.SCALED_SIZE * w,
                 Sprite.SCALED_SIZE * h + HEIGHT_MENU));
-        root.getChildren().add(canvas);
+        root.getChildren().addAll(canvas, rect, text);
 
         // Tao scene
         scene = new Scene(root);
@@ -166,6 +181,8 @@ public class BombermanGame extends Application {
         for (int i = 0; i < stillObjects.size(); i++) {
             stillObjects.get(i).update();
         }
+
+        text.setText("Life: " + bomberman.getLife());
 
         updateCanvas();
         handleCollisions();

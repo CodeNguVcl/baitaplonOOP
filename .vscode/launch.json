@@ -6,6 +6,14 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "vmArgs": "--module-path C:/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.media",
+      "mainClass": "oop.Main",
+      "projectName": "bomberman"
+    },
+    {
+      "type": "java",
       "name": "Launch Current File",
       "request": "launch",
       "vmArgs": "--module-path C:/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.media",
