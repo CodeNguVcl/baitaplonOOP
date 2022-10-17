@@ -85,7 +85,7 @@ public class BombermanGame extends Application {
         // Tao root container
         Group root = new Group();
         root.setClip(new Rectangle(Sprite.SCALED_SIZE * w,
-                Sprite.SCALED_SIZE * (h + HEIGHT_MENU)));
+                Sprite.SCALED_SIZE * h + HEIGHT_MENU));
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -111,7 +111,7 @@ public class BombermanGame extends Application {
                 levelUP();
                 if (chooseScene >= 0) {
                     if (chooseScene % 2 == 0) {
-                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
                         update();
                         render();
                         stage.setScene(scene);
@@ -173,7 +173,7 @@ public class BombermanGame extends Application {
     }
 
     public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
         for (int i = stillObjects.size() - 1; i >= 0; i--) {
             stillObjects.get(i).render(gc);
         }
@@ -199,6 +199,15 @@ public class BombermanGame extends Application {
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
         }
 
+        // if (-1 * bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4) <= 0 && -1 *
+        // bomberman.getY()
+        // + Sprite.SCALED_SIZE * (HEIGHT / 4) >= -1 * Sprite.SCALED_SIZE * (HEIGHT / 2
+        // + 1)
+        // && bomberman.isLive()) {
+
+        // canvas.setLayoutY(-bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4));
+        // }
+
     }
 
     public void levelUP() {
@@ -223,6 +232,7 @@ public class BombermanGame extends Application {
             CreateMap.nextLevel = false;
             gameStage.setScene(Menu.levelScene());
             canvas.setLayoutX(0);
+            canvas.setLayoutY(0);
         }
 
     }
@@ -306,6 +316,7 @@ public class BombermanGame extends Application {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
                 canvas.setLayoutX(0);
+                canvas.setLayoutY(0);
                 bomberman.setLive(false);
                 Sound.play("bomberDie");
             }
@@ -332,6 +343,7 @@ public class BombermanGame extends Application {
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
                 canvas.setLayoutX(0);
+                canvas.setLayoutY(0);
                 bomberman.setLive(false);
                 Sound.play("bomberDie");
             }

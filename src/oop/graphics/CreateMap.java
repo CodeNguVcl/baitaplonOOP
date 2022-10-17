@@ -28,7 +28,7 @@ public class CreateMap {
 
   private int level;
 
-  public static int max_level = 2;
+  public static int max_level = 5;
   public static boolean nextLevel;
 
   public static String[][] idMap = new String[HEIGHT][WIDTH];

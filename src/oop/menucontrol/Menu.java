@@ -22,12 +22,14 @@ import oop.graphics.Sprite;
 import oop.sound.Sound;
 
 public class Menu {
+
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
   public static final Font font = Font
       .loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 20);
 
   // START MENU.
   public static Scene startScene() {
+
     Sound.play("menuMusic");
 
     Button play = new Button("PLAY");
@@ -46,6 +48,7 @@ public class Menu {
       Sound.play("menuClicked");
       BombermanGame.chooseScene = 0;
     });
+
     play.setOnMouseEntered(mouseEvent -> play.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(18,128,255)"));
@@ -74,11 +77,12 @@ public class Menu {
       Scene scene = new Scene(a);
       s.setScene(scene);
       s.setWidth(Sprite.SCALED_SIZE * BombermanGame.w);
-      s.setHeight(Sprite.SCALED_SIZE * BombermanGame.h);
+      s.setHeight(Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
       s.setResizable(false);
       s.initModality(Modality.APPLICATION_MODAL);
       s.showAndWait();
     });
+
     help.setOnMouseEntered(mouseEvent -> help.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(18,128,255)"));
@@ -92,8 +96,10 @@ public class Menu {
         "-fx-background-repeat: no-repeat;" +
         "-fx-background-position: top left;" +
         "-fx-background-size: 100% 100%");
-    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w, Sprite.SCALED_SIZE * BombermanGame.h);
+    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
+        Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
     Scene scene = new Scene(root);
+
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.ENTER) {
         // am thanh bam phim o day.
@@ -106,11 +112,13 @@ public class Menu {
 
   // PAUUSE GAME.
   public static Scene pauseScene() {
+
     Text t1 = new Text("PAUSE");
     t1.setFont(
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
             16 * Sprite.SCALE));
     t1.setFill(Color.BLUE);
+
     Button button = new Button("Press P to continue!!!");
     button.setPrefHeight(16 * Sprite.SCALE);
     button.setPrefWidth(108 * Sprite.SCALE);
@@ -122,15 +130,18 @@ public class Menu {
       Sound.play("menuEntered");
       BombermanGame.chooseScene++;
     });
+
     VBox root = new VBox(t1, button);
     root.setAlignment(Pos.CENTER);
     root.setSpacing(20 * Sprite.SCALE);
-    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w, Sprite.SCALED_SIZE * BombermanGame.h);
+    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
+        Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 2, 1), null, null)));
     root.setStyle("-fx-background-image: url(pause.png);" +
         "-fx-background-repeat: no-repeat;" +
         "-fx-background-position: top left;" +
         "-fx-background-size: 100% 100%");
+
     Scene scene = new Scene(root);
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.P) {
@@ -155,7 +166,8 @@ public class Menu {
     text.setLayoutY(100 * Sprite.SCALE);
 
     AnchorPane root = new AnchorPane(text);
-    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w, Sprite.SCALED_SIZE * BombermanGame.h);
+    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
+        Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(10, 2, 5), null, null)));
     root.setStyle("-fx-background-image: url(pause.png);" +
         "-fx-background-repeat: no-repeat;" +
@@ -175,7 +187,7 @@ public class Menu {
 
   // WIN LOSE SCENE.
   public static Scene win_loseScene(boolean win) {
-    // them am thanh vao day.
+    // them am thanh vao day (if else)
     Sound.play("gameOver");
 
     DropShadow ds = new DropShadow();
@@ -183,9 +195,9 @@ public class Menu {
     ds.setColor(Color.rgb(72, 71, 70));
     Text text;
     if (win) {
-      text = new Text("YOU WIN!!!");
+      text = new Text("YOU WIN !!!");
     } else {
-      text = new Text(" YOU LOSE ");
+      text = new Text(" YOU LOSE !!!");
     }
     text.setFont(
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
@@ -226,7 +238,10 @@ public class Menu {
           "-fx-background-repeat: no-repeat;" +
           "-fx-background-position: top left;" +
           "-fx-background-size: 100% 100%");
-    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w, Sprite.SCALED_SIZE * BombermanGame.h);
+
+    root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
+        Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
+
     Scene scene = new Scene(root);
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.ENTER) {
