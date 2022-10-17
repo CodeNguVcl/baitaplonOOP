@@ -8,13 +8,14 @@
       "type": "java",
       "name": "Launch Current File",
       "request": "launch",
+      "vmArgs": "--module-path C:/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.media",
       "mainClass": "${file}"
     },
     {
       "type": "java",
       "name": "Launch BombermanGame",
       "request": "launch",
-      "vmArgs": "--module-path C:/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml",
+      "vmArgs": "--module-path C:/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.media",
       "mainClass": "oop.BombermanGame",
       "projectName": "bomberman"
     }

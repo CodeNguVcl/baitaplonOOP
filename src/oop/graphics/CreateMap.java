@@ -93,7 +93,6 @@ public class CreateMap {
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
                 idMap[i][j] = "-";
                 bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
-                // entities.add(bomberman);
                 break;
               case "1":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
