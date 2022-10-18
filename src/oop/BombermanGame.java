@@ -60,7 +60,8 @@ public class BombermanGame extends Application {
     public static String[][] IdMap;
     public static Scene scene;
 
-    public static Text text;
+    public static Text textLife;
+    public static Text textPoint;
 
     public static Bomber bomberman;
 
@@ -89,19 +90,25 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
 
         Rectangle rect = new Rectangle(0, Sprite.SCALED_SIZE * h, Sprite.SCALED_SIZE * w, HEIGHT_MENU);
-        rect.setFill(Color.BLACK);
+        rect.setFill(Color.rgb(80, 160, 0, 1.0));
 
-        text = new Text();
-        text.setLayoutX(40);
-        text.setLayoutY(Sprite.SCALED_SIZE * h + HEIGHT_MENU / 4 * 3);
-        text.setFill(Color.WHITE);
-        text.setFont(font);
+        textLife = new Text();
+        textLife.setLayoutX(Sprite.SCALE * 40);
+        textLife.setLayoutY(Sprite.SCALED_SIZE * h + HEIGHT_MENU / 4 * 3 + Sprite.SCALE);
+        textLife.setFill(Color.WHITE);
+        textLife.setFont(font);
+
+        textPoint = new Text();
+        textPoint.setLayoutX(Sprite.SCALE * 140);
+        textPoint.setLayoutY(Sprite.SCALED_SIZE * h + HEIGHT_MENU / 4 * 3 + Sprite.SCALE);
+        textPoint.setFill(Color.WHITE);
+        textPoint.setFont(font);
 
         // Tao root container
         Group root = new Group();
         root.setClip(new Rectangle(Sprite.SCALED_SIZE * w,
                 Sprite.SCALED_SIZE * h + HEIGHT_MENU));
-        root.getChildren().addAll(canvas, rect, text);
+        root.getChildren().addAll(canvas, rect, textLife, textPoint);
 
         // Tao scene
         scene = new Scene(root);
@@ -129,10 +136,11 @@ public class BombermanGame extends Application {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
                         update();
                         render();
+                        // updateScore();
                         stage.setScene(scene);
                         if (!bgMusicIsPlaying) {
                             Sound.stop("menuMusic");
-                            Sound.play("background");
+                            Sound.play("bg");
                             bgMusicIsPlaying = true;
                         }
                     } else {
@@ -182,7 +190,8 @@ public class BombermanGame extends Application {
             stillObjects.get(i).update();
         }
 
-        text.setText("Life: " + bomberman.getLife());
+        textLife.setText("LIFE: " + bomberman.getLife());
+        textPoint.setText("POINT: " + playerPoint);
 
         updateCanvas();
         handleCollisions();
@@ -358,6 +367,11 @@ public class BombermanGame extends Application {
             // bom no vao bomber.
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
+                if (playerPoint < 2100) {
+                    playerPoint = 0;
+                } else {
+                    playerPoint -= 100;
+                }
                 canvas.setLayoutX(0);
                 canvas.setLayoutY(0);
                 bomberman.setLive(false);
@@ -368,6 +382,7 @@ public class BombermanGame extends Application {
             for (Enemy enm : enemy) {
                 Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
+                    playerPoint += enm.getPoint();
                     enm.setLive(false);
                     Sound.play("enemyDie");
                 }
