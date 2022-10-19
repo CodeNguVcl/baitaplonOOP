@@ -179,6 +179,17 @@ public class Bomber extends Character {
         }
     }
 
+    public void newLevel() {
+        img = Sprite.player_right.getFxImage();
+        direction = null;
+        setSpeed((int) bomber_speed);
+        setAccelration(0);
+        setBombRemain(1);
+        setFlameRadius(1);
+        setLife(life + 1);
+        setLive(true);
+    }
+
     public int getBombRemain() {
         return this.bombRemain;
     }

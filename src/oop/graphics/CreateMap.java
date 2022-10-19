@@ -92,8 +92,13 @@ public class CreateMap {
               case "p":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
                 idMap[i][j] = "-";
-                if (level == 1) {
+                if (bomberman == null || (bomberman.getLife() <= 0)) {
                   bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                } else {
+                  bomberman.setX(j * Sprite.SCALED_SIZE);
+                  bomberman.setPosX(j * Sprite.SCALED_SIZE);
+                  bomberman.setY(i * Sprite.SCALED_SIZE);
+                  bomberman.setPosY(i * Sprite.SCALED_SIZE);
                 }
                 break;
               case "1":

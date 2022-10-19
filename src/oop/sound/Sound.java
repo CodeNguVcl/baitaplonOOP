@@ -20,7 +20,7 @@ public class Sound {
         if (Objects.equals(sound, "background") || Objects.equals(sound,
             "menuMusic") || Objects.equals(sound, "bg")) {
           audio.setPriority(1);
-          audio.setCycleCount(20);
+          audio.setCycleCount(50);
         }
         audio.play();
         lastSound = sound;

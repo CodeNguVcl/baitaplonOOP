@@ -147,6 +147,7 @@ public class BombermanGame extends Application {
                         }
                     } else {
                         gameStage.setScene(pauseScene);
+                        Sound.stop("bg");
                     }
 
                 }
@@ -242,6 +243,8 @@ public class BombermanGame extends Application {
     public void levelUP() {
         if (bomberman.getLife() <= 0) {
             chooseScene = -1;
+            Sound.stop("bg");
+            bgMusicIsPlaying = false;
             gameStage.setScene(Menu.win_loseScene(false));
             map = new CreateMap(level);
             CreateMap.nextLevel = false;
@@ -250,12 +253,15 @@ public class BombermanGame extends Application {
 
         if (CreateMap.nextLevel) {
             chooseScene = -1;
+            Sound.stop("bg");
+            bgMusicIsPlaying = false;
+            Sound.play("menuMusic");
             level++;
             if (level > CreateMap.max_level) {
                 level = 1;
                 gameStage.setScene(Menu.win_loseScene(true));
             } else {
-                bomberman.setLife(bomberman.getLife() + 1);
+                bomberman.newLevel();
             }
             map = new CreateMap(level);
             CreateMap.nextLevel = false;
@@ -295,7 +301,9 @@ public class BombermanGame extends Application {
                     // // Sound.play("levelUp");
                     // CreateMap.nextLevel = true;
                     // }
+                    Sound.play("levelUp");
                     CreateMap.nextLevel = true;
+
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
                     bomberman.move();

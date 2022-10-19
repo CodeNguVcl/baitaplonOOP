@@ -131,6 +131,7 @@ public class Menu {
     button.setOnAction(actionEvent -> {
       // them anh thanh vao day.
       Sound.play("menuEntered");
+      Sound.play("bg");
       BombermanGame.chooseScene++;
     });
 
@@ -150,6 +151,7 @@ public class Menu {
       if (keyEvent.getCode() == KeyCode.P) {
         // them anh thhanh vao day.
         Sound.play("menuEntered");
+        Sound.play("bg");
         BombermanGame.chooseScene++;
       }
     });
@@ -224,9 +226,8 @@ public class Menu {
     playAgain.setOnAction(actionEvent -> {
       // them anh thanh vao day.
       Sound.play("menuClicked");
-      Sound.play("stageStart");
-      Sound.play("bg");
-      bgMusicIsPlaying = true;
+      Sound.stop("gameOver");
+      Sound.stop("win");
       BombermanGame.chooseScene = 0;
       BombermanGame.playerPoint = 0;
     });
@@ -256,9 +257,8 @@ public class Menu {
       if (keyEvent.getCode() == KeyCode.ENTER) {
         // them anh thanh vao day.
         Sound.play("menuClicked");
-        Sound.play("stageStart");
-        Sound.play("bg");
-        bgMusicIsPlaying = true;
+        Sound.stop("gameOver");
+        Sound.stop("win");
         BombermanGame.chooseScene = 0;
       }
     });
