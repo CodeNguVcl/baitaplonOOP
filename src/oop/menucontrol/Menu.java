@@ -25,7 +25,7 @@ public class Menu {
 
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
   public static final Font font = Font
-      .loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 20);
+      .loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 10 * Sprite.SCALE);
 
   // START MENU.
   public static Scene startScene() {
@@ -120,10 +120,11 @@ public class Menu {
     t1.setFill(Color.BLUE);
 
     Button button = new Button("Press P to continue!!!");
-    button.setPrefHeight(16 * Sprite.SCALE);
-    button.setPrefWidth(108 * Sprite.SCALE);
+    button.setPrefHeight(24 * Sprite.SCALE);
+    button.setPrefWidth(168 * Sprite.SCALE);
     button.setFont(font);
     button.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
         " -fx-background-color: rgb(10, 2, 1)");
     button.setOnAction(actionEvent -> {
       // them anh thanh vao day.
@@ -187,8 +188,12 @@ public class Menu {
 
   // WIN LOSE SCENE.
   public static Scene win_loseScene(boolean win) {
-    // them am thanh vao day (if else)
-    Sound.play("gameOver");
+    // them am thanh vao day (if else).
+    if (win) {
+      Sound.play("win");
+    } else {
+      Sound.play("gameOver");
+    }
 
     DropShadow ds = new DropShadow();
     ds.setOffsetY(2 * Sprite.SCALE);
@@ -204,7 +209,6 @@ public class Menu {
             24 * Sprite.SCALE));
     text.setFill(Color.rgb(237, 250, 246));
     text.setEffect(ds);
-    // text score o day.
 
     Button playAgain = new Button("Play again?");
     playAgain.setPrefHeight(16 * Sprite.SCALE);
@@ -219,7 +223,7 @@ public class Menu {
       // them anh thanh vao day.
       Sound.play("menuClicked");
       BombermanGame.chooseScene = 0;
-      // update score = 0
+      BombermanGame.playerPoint = 00000;
     });
     playAgain.setOnMouseEntered(mouseEvent -> playAgain.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
