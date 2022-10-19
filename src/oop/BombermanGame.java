@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static oop.sound.Sound.bgMusicIsPlaying;
+
 public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
@@ -72,8 +74,6 @@ public class BombermanGame extends Application {
 
     public static int level = 1;
     public static int playerPoint;
-
-    public boolean bgMusicIsPlaying;
 
     @Override
     public void start(Stage stage) {
@@ -141,6 +141,7 @@ public class BombermanGame extends Application {
                         stage.setScene(scene);
                         if (!bgMusicIsPlaying) {
                             Sound.stop("menuMusic");
+                            Sound.play("stageStart");
                             Sound.play("bg");
                             bgMusicIsPlaying = true;
                         }
@@ -369,11 +370,6 @@ public class BombermanGame extends Application {
             // bom no vao bomber.
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
-                // if (playerPoint < 2100) {
-                // playerPoint = 0;
-                // } else {
-                // playerPoint -= 100;
-                // }
                 canvas.setLayoutX(0);
                 canvas.setLayoutY(0);
                 bomberman.setLive(false);
@@ -384,7 +380,9 @@ public class BombermanGame extends Application {
             for (Enemy enm : enemy) {
                 Rectangle r2 = enm.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
-                    playerPoint += enm.getPoint();
+                    if (enm.isLive()) {
+                        playerPoint += enm.getPoint();
+                    }
                     enm.setLive(false);
                     Sound.play("enemyDie");
                 }

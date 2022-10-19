@@ -9,6 +9,8 @@ public class Sound {
   public static AudioClip audio;
   private static String lastSound;
 
+  public static boolean bgMusicIsPlaying;
+
   public static void play(String sound) {
     if (Objects.equals(sound, "bombPut") || Objects.equals(sound, "bombExploded")
         || !Objects.equals(sound, lastSound)) {
@@ -16,7 +18,7 @@ public class Sound {
       try {
         audio = new AudioClip(audioFile.toURI().toString());
         if (Objects.equals(sound, "background") || Objects.equals(sound,
-            "menuMusic")) {
+            "menuMusic") || Objects.equals(sound, "bg")) {
           audio.setPriority(1);
           audio.setCycleCount(20);
         }

@@ -58,6 +58,7 @@ public class Bomber extends Character {
                 this.life--;
             }
             lifeCount++;
+            Sound.stop("bg");
         }
 
         if (!isLive()) {
@@ -76,6 +77,7 @@ public class Bomber extends Character {
                 this.setLive(true);
                 lifeCount = 0;
                 Sound.play("stageStart");
+                Sound.bgMusicIsPlaying = false;
                 animated = 0;
             }
         } else {

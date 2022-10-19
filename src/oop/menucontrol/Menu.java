@@ -21,6 +21,8 @@ import oop.BombermanGame;
 import oop.graphics.Sprite;
 import oop.sound.Sound;
 
+import static oop.sound.Sound.bgMusicIsPlaying;
+
 public class Menu {
 
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
@@ -222,8 +224,11 @@ public class Menu {
     playAgain.setOnAction(actionEvent -> {
       // them anh thanh vao day.
       Sound.play("menuClicked");
+      Sound.play("stageStart");
+      Sound.play("bg");
+      bgMusicIsPlaying = true;
       BombermanGame.chooseScene = 0;
-      BombermanGame.playerPoint = 00000;
+      BombermanGame.playerPoint = 0;
     });
     playAgain.setOnMouseEntered(mouseEvent -> playAgain.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
@@ -251,6 +256,9 @@ public class Menu {
       if (keyEvent.getCode() == KeyCode.ENTER) {
         // them anh thanh vao day.
         Sound.play("menuClicked");
+        Sound.play("stageStart");
+        Sound.play("bg");
+        bgMusicIsPlaying = true;
         BombermanGame.chooseScene = 0;
       }
     });

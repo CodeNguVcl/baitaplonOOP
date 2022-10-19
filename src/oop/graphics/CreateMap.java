@@ -92,7 +92,9 @@ public class CreateMap {
               case "p":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
                 idMap[i][j] = "-";
-                bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                if (level == 1) {
+                  bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                }
                 break;
               case "1":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
