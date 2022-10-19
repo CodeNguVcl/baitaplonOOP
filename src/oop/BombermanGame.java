@@ -12,7 +12,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 //import java.awt.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,18 +35,17 @@ import oop.menucontrol.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static oop.sound.Sound.bgMusicIsPlaying;
 
 public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
-    public static int HEIGHT = 13;
+    public static int HEIGHT = 21;
     public static int HEIGHT_MENU = Sprite.SCALED_SIZE;
 
     public static int w = 15;
-    public static int h = 13;
+    public static int h = 10;
 
     public static int chooseScene = -1;
 
@@ -85,7 +83,7 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
 
         Rectangle rect = new Rectangle(0, Sprite.SCALED_SIZE * h, Sprite.SCALED_SIZE * w, HEIGHT_MENU);
-        rect.setFill(Color.rgb(80, 160, 0, 1.0));
+        rect.setFill(Color.rgb(0, 0, 0, 1.0));
 
         textLevel = new Text();
         textLevel.setLayoutX(Sprite.SCALE * 10);
@@ -100,7 +98,7 @@ public class BombermanGame extends Application {
         textLife.setFont(Menu.font);
 
         textPoint = new Text();
-        textPoint.setLayoutX(Sprite.SCALE * 150);
+        textPoint.setLayoutX(Sprite.SCALE * 160);
         textPoint.setLayoutY(Sprite.SCALED_SIZE * h + HEIGHT_MENU / 4 * 3 + Sprite.SCALE);
         textPoint.setFill(Color.WHITE);
         textPoint.setFont(Menu.font);
@@ -229,14 +227,12 @@ public class BombermanGame extends Application {
             canvas.setLayoutX(-bomberman.getX() + Sprite.SCALED_SIZE * (WIDTH / 4));
         }
 
-        // if (-1 * bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4) <= 0 && -1 *
-        // bomberman.getY()
-        // + Sprite.SCALED_SIZE * (HEIGHT / 4) >= -1 * Sprite.SCALED_SIZE * (HEIGHT / 2
-        // + 1)
-        // && bomberman.isLive()) {
+        if (-1 * bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4) <= 0 && -1 * bomberman.getY()
+                + Sprite.SCALED_SIZE * (HEIGHT / 4) >= -1 * Sprite.SCALED_SIZE * (HEIGHT / 2 + 1)
+                && bomberman.isLive()) {
 
-        // canvas.setLayoutY(-bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4));
-        // }
+            canvas.setLayoutY(-bomberman.getY() + Sprite.SCALED_SIZE * (HEIGHT / 4));
+        }
 
     }
 

@@ -55,7 +55,7 @@ public class CreateMap {
   }
 
   public void readTileMap() {
-    String srcLevel = "res/levels/lv" + level + ".txt";
+    String srcLevel = "res/levels/bigmap" + level + ".txt";
     final File file = new File(srcLevel);
 
     try (FileReader fr = new FileReader(file)) {
