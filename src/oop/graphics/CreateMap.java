@@ -55,7 +55,7 @@ public class CreateMap {
   }
 
   public void readTileMap() {
-    String srcLevel = "res/levels/lv" + level + ".txt";
+    String srcLevel = "res/levels/bigmap" + level + ".txt";
     final File file = new File(srcLevel);
 
     try (FileReader fr = new FileReader(file)) {
@@ -92,9 +92,10 @@ public class CreateMap {
               case "p":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
                 idMap[i][j] = "-";
-                if (level == 1) {
-                  bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
-                }
+                // if (level == 1) {
+                // bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                // }
+                bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
                 break;
               case "1":
                 ett = new Grass(j, i, Sprite.grass.getFxImage());
