@@ -251,7 +251,9 @@ public class BombermanGame extends Application {
             chooseScene = -1;
             Sound.stop("bg");
             bgMusicIsPlaying = false;
-            Sound.play("menuMusic");
+            if (level != CreateMap.max_level) {
+                Sound.play("menuMusic");
+            }
             level++;
             if (level > CreateMap.max_level) {
                 level = 1;
@@ -349,8 +351,6 @@ public class BombermanGame extends Application {
         for (Enemy enm : enemy) {
             Rectangle r2 = enm.getBounds();
             if (r1.intersects(r2.getLayoutBounds())) {
-                canvas.setLayoutX(0);
-                canvas.setLayoutY(0);
                 bomberman.setLive(false);
                 Sound.play("bomberDie");
             }
@@ -370,14 +370,11 @@ public class BombermanGame extends Application {
                 Rectangle r2 = stillObject.getBounds();
                 if (r1.intersects(r2.getLayoutBounds())) {
                     stillObject.setLive(false);
-                    // am thanh bom no vao tuong.
                 }
             }
             // bom no vao bomber.
             Rectangle r3 = bomberman.getBounds();
             if (r1.intersects(r3.getLayoutBounds())) {
-                canvas.setLayoutX(0);
-                canvas.setLayoutY(0);
                 bomberman.setLive(false);
                 Sound.play("bomberDie");
             }

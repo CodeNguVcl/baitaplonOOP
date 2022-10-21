@@ -34,8 +34,8 @@ public abstract class Entity {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
-        Rectangle r1 = this.getBounds();
-        gc.strokeRect(r1.getX(), r1.getY(), r1.getWidth(), r1.getHeight());
+        //Rectangle r1 = this.getBounds();
+        //gc.strokeRect(r1.getX(), r1.getY(), r1.getWidth(), r1.getHeight());
     }
 
     public int getX() {

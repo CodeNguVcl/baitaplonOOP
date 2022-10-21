@@ -10,7 +10,7 @@ public class Doll extends Enemy {
     public Doll(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setLayer(1);
-        setSpeed(1);
+        setSpeed(Sprite.SCALE / 2);
         generateDirection();
         live = true;
         point = 150;
@@ -83,7 +83,7 @@ public class Doll extends Enemy {
 
     public void generateSpeed() {
         Random r = new Random();
-        setSpeed(1 + r.nextInt(4));
+        setSpeed(Sprite.SCALE / 2 * (1 + r.nextInt(4)));
     }
 }
 

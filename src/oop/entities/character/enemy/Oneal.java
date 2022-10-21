@@ -131,6 +131,6 @@ public class Oneal extends Enemy {
 
     public void generateSpeed() {
         Random r = new Random();
-        setSpeed(1 + r.nextInt(4));
+        setSpeed(Sprite.SCALE / 2 * (1 + r.nextInt(4)));
     }
 }

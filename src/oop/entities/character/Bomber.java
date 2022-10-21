@@ -13,6 +13,8 @@ import oop.sound.Sound;
 import java.util.ArrayList;
 import java.util.List;
 
+import static oop.BombermanGame.canvas;
+
 public class Bomber extends Character {
 
     public static final List<Bomb> bombs = new ArrayList<>();
@@ -76,9 +78,10 @@ public class Bomber extends Character {
                 posY = Sprite.SCALED_SIZE;
                 this.setLive(true);
                 lifeCount = 0;
-                Sound.play("stageStart");
                 Sound.bgMusicIsPlaying = false;
                 animated = 0;
+                canvas.setLayoutX(0);
+                canvas.setLayoutY(0);
             }
         } else {
             if (direction == KeyCode.UP || direction == KeyCode.W) {
