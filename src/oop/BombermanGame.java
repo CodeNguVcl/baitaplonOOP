@@ -256,12 +256,14 @@ public class BombermanGame extends Application {
             if (level > CreateMap.max_level) {
                 level = 1;
                 gameStage.setScene(Menu.win_loseScene(true));
+                bomberman.setLife(3);
+                playerPoint = 0;
             } else {
-                bomberman.newLevel();
+                gameStage.setScene(Menu.levelScene());
             }
+            bomberman.newLevel();
             map = new CreateMap(level);
             CreateMap.nextLevel = false;
-            gameStage.setScene(Menu.levelScene());
             canvas.setLayoutX(0);
             canvas.setLayoutY(0);
         }

@@ -21,8 +21,6 @@ import oop.BombermanGame;
 import oop.graphics.Sprite;
 import oop.sound.Sound;
 
-import static oop.sound.Sound.bgMusicIsPlaying;
-
 public class Menu {
 
   public static final ClassLoader c = ClassLoader.getSystemClassLoader();
@@ -162,13 +160,14 @@ public class Menu {
   public static Scene levelScene() {
 
     Text text = new Text("Level " + BombermanGame.level);
+
     text.setWrappingWidth(96 * Sprite.SCALE);
     text.setFont(
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
-            Sprite.SCALE * 24));
+            Sprite.SCALE * 16));
     text.setFill(Color.BLUE);
-    text.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - text.getWrappingWidth() / 2);
-    text.setLayoutY(100 * Sprite.SCALE);
+    text.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - text.getWrappingWidth() / 3);
+    text.setLayoutY(70 * Sprite.SCALE);
 
     AnchorPane root = new AnchorPane(text);
     root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
@@ -208,18 +207,16 @@ public class Menu {
     } else {
       text = new Text(" YOU LOSE !!!");
     }
-    text.setFont(
-        Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
-            24 * Sprite.SCALE));
+    text.setFont(Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
+        24 * Sprite.SCALE));
     text.setFill(Color.rgb(237, 250, 246));
     text.setEffect(ds);
 
     Button playAgain = new Button("Play again?");
     playAgain.setPrefHeight(16 * Sprite.SCALE);
     playAgain.setPrefWidth(105 * Sprite.SCALE);
-    playAgain.setFont(
-        Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
-            13 * Sprite.SCALE));
+    playAgain.setFont(Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
+        13 * Sprite.SCALE));
     playAgain.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         " -fx-background-color: rgb(96,186,251)");
@@ -243,11 +240,22 @@ public class Menu {
     root.setAlignment(Pos.CENTER);
     root.setSpacing(13 * Sprite.SCALE);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(6, 2, 1), null, null)));
-    if (win)
-      root.setStyle("-fx-background-image: url('img.png');" +
-          "-fx-background-repeat: no-repeat;" +
-          "-fx-background-position: top left;" +
-          "-fx-background-size: 100% 100%");
+    // if (win) {
+    // root.setStyle("-fx-background-image: url('img.png');" +
+    // "-fx-background-repeat: no-repeat;" +
+    // "-fx-background-position: top left;" +
+    // "-fx-background-size: 100% 100%");
+    // } else {
+    // root.setStyle("-fx-background-image: url('img.png');" +
+    // "-fx-background-repeat: no-repeat;" +
+    // "-fx-background-position: top left;" +
+    // "-fx-background-size: 100% 100%");
+    // }
+
+    root.setStyle("-fx-background-image: url('img.png');" +
+        "-fx-background-repeat: no-repeat;" +
+        "-fx-background-position: top left;" +
+        "-fx-background-size: 100% 100%");
 
     root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
         Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
