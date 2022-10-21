@@ -39,7 +39,7 @@ public class Menu {
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
             Sprite.SCALE * 12));
     play.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - 50 * Sprite.SCALE);
-    play.setLayoutY((double) (Sprite.SCALED_SIZE * BombermanGame.h) / 2);
+    play.setLayoutY((double) (Sprite.SCALED_SIZE * BombermanGame.h) / 2 - Sprite.SCALE * 20);
     play.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)");
@@ -63,7 +63,7 @@ public class Menu {
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
             Sprite.SCALE * 12));
     help.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - Sprite.SCALE * 50);
-    help.setLayoutY((double) (Sprite.SCALED_SIZE * BombermanGame.h) / 2 + Sprite.SCALE * 30);
+    help.setLayoutY((double) (Sprite.SCALED_SIZE * BombermanGame.h) / 2 + Sprite.SCALE * 10);
     help.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)");
@@ -90,7 +90,29 @@ public class Menu {
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)"));
 
-    AnchorPane root = new AnchorPane(play, help);
+    Button exit = new Button("EXIT");
+    exit.setPrefHeight(Sprite.SCALE * 16);
+    exit.setPrefWidth(Sprite.SCALE * 96);
+    exit.setFont(
+        Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
+            Sprite.SCALE * 12));
+    exit.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - Sprite.SCALE * 50);
+    exit.setLayoutY((double) (Sprite.SCALED_SIZE * BombermanGame.h) / 2 + Sprite.SCALE * 40);
+    exit.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        "-fx-background-color: rgb(96,186,251)");
+    exit.setOnAction(actionEvent -> {
+      BombermanGame.logout(BombermanGame.gameStage);
+    });
+
+    exit.setOnMouseEntered(mouseEvent -> exit.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        "-fx-background-color: rgb(18,128,255)"));
+    exit.setOnMouseExited(mouseEvent -> exit.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        "-fx-background-color: rgb(96,186,251)"));
+
+    AnchorPane root = new AnchorPane(play, help, exit);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(10, 2, 1), null, null)));
     root.setStyle("-fx-background-image: url('img.png');" +
         "-fx-background-repeat: no-repeat;" +
@@ -130,7 +152,7 @@ public class Menu {
       // them anh thanh vao day.
       Sound.play("menuEntered");
       Sound.play("bg");
-      BombermanGame.chooseScene++;
+      BombermanGame.chooseScene = 1;
     });
 
     VBox root = new VBox(t1, button);
@@ -150,7 +172,7 @@ public class Menu {
         // them anh thhanh vao day.
         Sound.play("menuEntered");
         Sound.play("bg");
-        BombermanGame.chooseScene++;
+        BombermanGame.chooseScene = 0;
       }
     });
     return scene;
@@ -186,6 +208,7 @@ public class Menu {
         BombermanGame.chooseScene = 0;
       }
     });
+
     return scene;
   }
 
@@ -234,9 +257,32 @@ public class Menu {
     playAgain.setOnMouseExited(mouseEvent -> playAgain.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)"));
+
+    Button mainMenu = new Button("Main menu");
+    mainMenu.setPrefHeight(16 * Sprite.SCALE);
+    mainMenu.setPrefWidth(105 * Sprite.SCALE);
+    mainMenu.setFont(Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
+        13 * Sprite.SCALE));
+    mainMenu.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        " -fx-background-color: rgb(96,186,251)");
+    mainMenu.setOnAction(actionEvent -> {
+      // them anh thanh vao day.
+      Sound.play("menuClicked");
+      Sound.stop("gameOver");
+      Sound.stop("win");
+      BombermanGame.chooseScene = 2;
+    });
+    mainMenu.setOnMouseEntered(mouseEvent -> mainMenu.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        "-fx-background-color: rgb(18,128,255)"));
+    mainMenu.setOnMouseExited(mouseEvent -> mainMenu.setStyle("-fx-text-fill: #ffffff;" +
+        " -fx-background-radius: 50;" +
+        "-fx-background-color: rgb(96,186,251)"));
+
     Label empty = new Label("");
     empty.setPrefHeight(33 * Sprite.SCALE);
-    VBox root = new VBox(empty, text, playAgain);
+    VBox root = new VBox(empty, text, playAgain, mainMenu);
     root.setAlignment(Pos.CENTER);
     root.setSpacing(13 * Sprite.SCALE);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(6, 2, 1), null, null)));

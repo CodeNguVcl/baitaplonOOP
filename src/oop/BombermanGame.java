@@ -114,6 +114,8 @@ public class BombermanGame extends Application {
 
         Scene pauseScene = Menu.pauseScene();
 
+        Scene mainmenu = Menu.startScene();
+
         // Them scene vao stage
         gameStage.setResizable(false);
         gameStage.setScene(Menu.startScene());
@@ -131,18 +133,21 @@ public class BombermanGame extends Application {
             public void handle(long l) {
                 levelUP();
                 if (chooseScene >= 0) {
-                    if (chooseScene % 2 == 0) {
+                    if (chooseScene % 3 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
                         update();
                         render();
                         // updateScore();
-                        stage.setScene(scene);
+                        gameStage.setScene(scene);
                         if (!bgMusicIsPlaying) {
                             Sound.stop("menuMusic");
                             Sound.play("stageStart");
                             Sound.play("bg");
                             bgMusicIsPlaying = true;
                         }
+                    } else if (chooseScene % 3 == 2) {
+
+                        gameStage.setScene(mainmenu);
                     } else {
                         gameStage.setScene(pauseScene);
                         Sound.stop("bg");
@@ -162,7 +167,7 @@ public class BombermanGame extends Application {
         scene.setOnKeyReleased(e -> bomberman.handleKeyReleased(e.getCode()));
     }
 
-    public void logout(Stage stage) {
+    public static void logout(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("CR7");
         alert.setHeaderText("Shiuuuuuuuuuuuuuuuuuuuuuuuu");
