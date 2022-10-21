@@ -117,15 +117,15 @@ public class Menu {
     t1.setFont(
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
             16 * Sprite.SCALE));
-    t1.setFill(Color.BLUE);
+    t1.setFill(Color.rgb(30, 35, 128));
 
     Button button = new Button("Press P to continue!!!");
     button.setPrefHeight(24 * Sprite.SCALE);
-    button.setPrefWidth(168 * Sprite.SCALE);
+    button.setPrefWidth(144 * Sprite.SCALE);
     button.setFont(font);
-    button.setStyle("-fx-text-fill: #ffffff;" +
+    button.setStyle("-fx-text-fill: #1e2380;" +
         " -fx-background-radius: 50;" +
-        " -fx-background-color: rgb(10, 2, 1)");
+        " -fx-background-color: rgba(00, 0, 0, 0)");
     button.setOnAction(actionEvent -> {
       // them anh thanh vao day.
       Sound.play("menuEntered");
@@ -135,11 +135,11 @@ public class Menu {
 
     VBox root = new VBox(t1, button);
     root.setAlignment(Pos.CENTER);
-    root.setSpacing(20 * Sprite.SCALE);
+    root.setSpacing(10 * Sprite.SCALE);
     root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
         Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 2, 1), null, null)));
-    root.setStyle("-fx-background-image: url(pause.png);" +
+    root.setStyle("-fx-background-image: url(img.png);" +
         "-fx-background-repeat: no-repeat;" +
         "-fx-background-position: top left;" +
         "-fx-background-size: 100% 100%");
@@ -164,16 +164,16 @@ public class Menu {
     text.setWrappingWidth(96 * Sprite.SCALE);
     text.setFont(
         Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(),
-            Sprite.SCALE * 16));
-    text.setFill(Color.BLUE);
-    text.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - text.getWrappingWidth() / 3);
-    text.setLayoutY(70 * Sprite.SCALE);
+            Sprite.SCALE * 24));
+    text.setFill(Color.rgb(30, 35, 128));
+    text.setLayoutX((double) (Sprite.SCALED_SIZE * BombermanGame.w) / 2 - text.getWrappingWidth() / 2);
+    text.setLayoutY(100 * Sprite.SCALE);
 
     AnchorPane root = new AnchorPane(text);
     root.setPrefSize(Sprite.SCALED_SIZE * BombermanGame.w,
         Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(10, 2, 5), null, null)));
-    root.setStyle("-fx-background-image: url(pause.png);" +
+    root.setStyle("-fx-background-image: url(img.png);" +
         "-fx-background-repeat: no-repeat;" +
         "-fx-background-position: top left;" +
         "-fx-background-size: 100% 100%");
@@ -203,13 +203,13 @@ public class Menu {
     ds.setColor(Color.rgb(72, 71, 70));
     Text text;
     if (win) {
-      text = new Text("YOU WIN !!!");
+      text = new Text("     YOU WIN !!! \n YOUR SCORE: " + BombermanGame.playerPoint);
     } else {
-      text = new Text(" YOU LOSE !!!");
+      text = new Text("     YOU LOSE !!! \n YOUR SCORE: " + BombermanGame.playerPoint);
     }
     text.setFont(Font.loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateBlackFLF.ttf")).toString(),
-        24 * Sprite.SCALE));
-    text.setFill(Color.rgb(237, 250, 246));
+        12 * Sprite.SCALE));
+    text.setFill(Color.rgb(30, 35, 128));
     text.setEffect(ds);
 
     Button playAgain = new Button("Play again?");
@@ -240,17 +240,6 @@ public class Menu {
     root.setAlignment(Pos.CENTER);
     root.setSpacing(13 * Sprite.SCALE);
     root.setBackground(new Background(new BackgroundFill(Color.rgb(6, 2, 1), null, null)));
-    // if (win) {
-    // root.setStyle("-fx-background-image: url('img.png');" +
-    // "-fx-background-repeat: no-repeat;" +
-    // "-fx-background-position: top left;" +
-    // "-fx-background-size: 100% 100%");
-    // } else {
-    // root.setStyle("-fx-background-image: url('img.png');" +
-    // "-fx-background-repeat: no-repeat;" +
-    // "-fx-background-position: top left;" +
-    // "-fx-background-size: 100% 100%");
-    // }
 
     root.setStyle("-fx-background-image: url('img.png');" +
         "-fx-background-repeat: no-repeat;" +
