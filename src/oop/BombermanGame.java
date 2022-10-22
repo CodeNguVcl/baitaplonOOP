@@ -252,6 +252,7 @@ public class BombermanGame extends Application {
     public void levelUP() {
         if (bomberman.getLife() <= 0) {
             chooseScene = -1;
+            level = 1;
             Sound.stop("bg");
             bgMusicIsPlaying = false;
             gameStage.setScene(Menu.win_loseScene(false));
@@ -263,11 +264,11 @@ public class BombermanGame extends Application {
         if (CreateMap.nextLevel) {
             chooseScene = -1;
             Sound.stop("bg");
+            level++;
             bgMusicIsPlaying = false;
             if (level != CreateMap.max_level) {
                 Sound.play("menuMusic");
             }
-            level++;
             if (level > CreateMap.max_level) {
                 level = 1;
                 gameStage.setScene(Menu.win_loseScene(true));

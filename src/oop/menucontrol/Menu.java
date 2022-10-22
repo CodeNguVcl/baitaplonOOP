@@ -273,6 +273,7 @@ public class Menu {
       Sound.stop("gameOver");
       Sound.stop("win");
       BombermanGame.chooseScene = 2;
+
     });
     mainMenu.setOnMouseEntered(mouseEvent -> mainMenu.setStyle("-fx-text-fill: #ffffff;" +
         " -fx-background-radius: 50;" +
@@ -297,15 +298,7 @@ public class Menu {
         Sprite.SCALED_SIZE * BombermanGame.h + BombermanGame.HEIGHT_MENU);
 
     Scene scene = new Scene(root);
-    scene.setOnKeyPressed(keyEvent -> {
-      if (keyEvent.getCode() == KeyCode.ENTER) {
-        // them anh thanh vao day.
-        Sound.play("menuClicked");
-        Sound.stop("gameOver");
-        Sound.stop("win");
-        BombermanGame.chooseScene = 0;
-      }
-    });
+
     return scene;
   }
 }
