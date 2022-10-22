@@ -143,11 +143,14 @@ public class BombermanGame extends Application {
                             Sound.stop("menuMusic");
                             Sound.play("stageStart");
                             Sound.play("bg");
+                            gameStage.setScene(scene);
                             bgMusicIsPlaying = true;
                         }
                     } else if (chooseScene % 3 == 2) {
-
+                        // Sound.stop("menuMusic");
+                        Sound.play("menuMusic");
                         gameStage.setScene(mainmenu);
+                        bgMusicIsPlaying = true;
                     } else {
                         gameStage.setScene(pauseScene);
                         Sound.stop("bg");
@@ -200,7 +203,7 @@ public class BombermanGame extends Application {
         textLife.setText("LIFE: " + bomberman.getLife());
         textPoint.setText("POINT: " + playerPoint);
 
-        updateCanvas();
+        updateCanvas();// update camera.
         handleCollisions();
         checkExplode();
     }
@@ -302,12 +305,12 @@ public class BombermanGame extends Application {
                     }
                 }
                 if (stillObject instanceof Portal) {
-                    // if (enemy.size() == 0) {
-                    // // Sound.play("levelUp");
+                    if (enemy.size() == 0) {
+                        Sound.play("levelUp");
+                        CreateMap.nextLevel = true;
+                    }
+                    // Sound.play("levelUp");
                     // CreateMap.nextLevel = true;
-                    // }
-                    Sound.play("levelUp");
-                    CreateMap.nextLevel = true;
 
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {
