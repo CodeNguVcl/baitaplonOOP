@@ -54,7 +54,8 @@ public class Astar {
 
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                if (Objects.equals(idMap[i][j], "#") || Objects.equals(idMap[i][j], "*")) {
+                if (Objects.equals(idMap[i][j], "#") || Objects.equals(idMap[i][j], "*")
+                        || Objects.equals(idMap[i][j], "x*")) {
                     nodes[i][j].solid = true;
                 }
                 getCost(nodes[i][j]);

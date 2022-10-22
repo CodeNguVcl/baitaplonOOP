@@ -69,6 +69,7 @@ public class Menu {
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)");
     help.setOnAction(actionEvent -> {
+      Sound.play("menuClicked");
       Stage s = new Stage();
       AnchorPane a = new AnchorPane();
       a.setStyle("-fx-background-image: url('helpMenu.png');" +
@@ -103,6 +104,7 @@ public class Menu {
         " -fx-background-radius: 50;" +
         "-fx-background-color: rgb(96,186,251)");
     exit.setOnAction(actionEvent -> {
+      Sound.play("menuClicked");
       BombermanGame.logout(BombermanGame.gameStage);
     });
 
