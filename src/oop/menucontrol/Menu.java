@@ -28,7 +28,7 @@ public class Menu {
       .loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 10 * Sprite.SCALE);
 
   // START MENU.
-  // choosescene = 2
+  // choosescene = 2.
   public static Scene startScene() {
 
     Sound.play("menuMusic");
@@ -134,6 +134,7 @@ public class Menu {
   }
 
   // PAUUSE GAME.
+  // chooseScene = 1;
   public static Scene pauseScene() {
 
     Text t1 = new Text("PAUSE");
@@ -171,6 +172,7 @@ public class Menu {
     scene.setOnKeyPressed(keyEvent -> {
       if (keyEvent.getCode() == KeyCode.P) {
         // them anh thhanh vao day.
+        Sound.stop("menuMusic");
         Sound.play("menuEntered");
         Sound.play("bg");
         BombermanGame.chooseScene = 0;
@@ -211,6 +213,7 @@ public class Menu {
   }
 
   // WIN LOSE SCENE.
+  // chooseScene = -1.
   public static Scene win_loseScene(boolean win) {
     // them am thanh vao day (if else).
     if (win) {
