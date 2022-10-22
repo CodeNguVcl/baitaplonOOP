@@ -115,6 +115,7 @@ public class BombermanGame extends Application {
         Scene pauseScene = Menu.pauseScene();
 
         Scene mainmenu = Menu.startScene();
+        Scene level = Menu.levelScene();
 
         // Them scene vao stage
         gameStage.setResizable(false);
@@ -133,27 +134,30 @@ public class BombermanGame extends Application {
             public void handle(long l) {
                 levelUP();
                 if (chooseScene >= 0) {
-                    if (chooseScene % 3 == 0) {
+
+                    if (chooseScene % 4 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
                         update();
                         render();
-                        // updateScore();
                         gameStage.setScene(scene);
                         if (!bgMusicIsPlaying) {
                             Sound.stop("menuMusic");
-                            Sound.play("stageStart");
+                            Sound.stop("stageStart");
                             Sound.play("bg");
-                            gameStage.setScene(scene);
                             bgMusicIsPlaying = true;
                         }
-                    } else if (chooseScene % 3 == 2) {
+                    } else if (chooseScene % 4 == 2) {
                         // Sound.stop("menuMusic");
                         Sound.play("menuMusic");
                         gameStage.setScene(mainmenu);
                         bgMusicIsPlaying = true;
-                    } else {
+                    } else if (chooseScene % 4 == 1) {
                         gameStage.setScene(pauseScene);
                         Sound.stop("bg");
+                    } else {
+                        Sound.stop("menuMusic");
+                        Sound.play("stageStart");
+                        gameStage.setScene(level);
                     }
 
                 }
@@ -222,7 +226,6 @@ public class BombermanGame extends Application {
 
         bomberman.render(gc);
 
-        // entities.forEach(g -> g.render(gc));
         flameList.forEach(g -> g.render(gc));
     }
 
@@ -305,12 +308,12 @@ public class BombermanGame extends Application {
                     }
                 }
                 if (stillObject instanceof Portal) {
-                    if (enemy.size() == 0) {
-                        Sound.play("levelUp");
-                        CreateMap.nextLevel = true;
-                    }
+                    // if (enemy.size() == 0) {
                     // Sound.play("levelUp");
                     // CreateMap.nextLevel = true;
+                    // }
+                    Sound.play("levelUp");
+                    CreateMap.nextLevel = true;
 
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {

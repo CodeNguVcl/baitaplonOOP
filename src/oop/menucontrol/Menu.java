@@ -28,6 +28,7 @@ public class Menu {
       .loadFont(Objects.requireNonNull(c.getResource("fonts/CollegiateInsideFLF.ttf")).toString(), 10 * Sprite.SCALE);
 
   // START MENU.
+  // choosescene = 2
   public static Scene startScene() {
 
     Sound.play("menuMusic");
@@ -46,7 +47,7 @@ public class Menu {
     play.setOnAction(actionEvent -> {
       // am thanh bam phim o day.
       Sound.play("menuClicked");
-      BombermanGame.chooseScene = 0;
+      BombermanGame.chooseScene = 3;
     });
 
     play.setOnMouseEntered(mouseEvent -> play.setStyle("-fx-text-fill: #ffffff;" +
@@ -179,6 +180,7 @@ public class Menu {
   }
 
   // LEVEL SCENE
+  // choose scene = 3.
   public static Scene levelScene() {
 
     Text text = new Text("Level " + BombermanGame.level);
@@ -201,12 +203,8 @@ public class Menu {
         "-fx-background-size: 100% 100%");
     Scene scene = new Scene(root);
     scene.setOnKeyPressed(keyEvent -> {
-      if (keyEvent.getCode() == KeyCode.ENTER || keyEvent.getCode() == KeyCode.P
-          || keyEvent.getCode() == KeyCode.SPACE ||
-          keyEvent.getCode() == KeyCode.A || keyEvent.getCode() == KeyCode.D
-          || keyEvent.getCode() == KeyCode.S) {
-        BombermanGame.chooseScene = 0;
-      }
+      Sound.play("bg");
+      BombermanGame.chooseScene = 0;
     });
 
     return scene;
