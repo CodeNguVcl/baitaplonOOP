@@ -136,8 +136,8 @@ public class BombermanGame extends Application {
                 if (chooseScene >= 0) {
                     if (chooseScene % 4 == 0) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight() + HEIGHT_MENU);
-                        //canvas.setLayoutX(0);
-                        //canvas.setLayoutY(0);
+                        // canvas.setLayoutX(0);
+                        // canvas.setLayoutY(0);
                         update();
                         render();
                         gameStage.setScene(scene);
@@ -257,6 +257,7 @@ public class BombermanGame extends Application {
             Sound.stop("bg");
             bgMusicIsPlaying = false;
             gameStage.setScene(Menu.win_loseScene(false));
+            level = 1;
             map = new CreateMap(level);
             CreateMap.nextLevel = false;
             return;
