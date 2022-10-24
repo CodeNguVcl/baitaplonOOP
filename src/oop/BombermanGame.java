@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -33,6 +34,7 @@ import oop.sound.Sound;
 // import oop.graphics.CreateMap;
 import oop.menucontrol.Menu;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +106,8 @@ public class BombermanGame extends Application {
         textPoint.setFill(Color.WHITE);
         textPoint.setFont(Menu.font);
 
+        Image icon = new Image(new File("res/icon.png").toURI().toString());
+
         // Tao root container
         Group root = new Group();
         root.setClip(new Rectangle(Sprite.SCALED_SIZE * w,
@@ -119,6 +123,7 @@ public class BombermanGame extends Application {
         Scene level = Menu.levelScene();
 
         // Them scene vao stage
+        gameStage.getIcons().add(icon);
         gameStage.setResizable(false);
         gameStage.setScene(Menu.startScene());
 
