@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static oop.sound.Sound.bgMusicIsPlaying;
+import static oop.sound.Sound.menuMusicIsPlaying;
 
 public class BombermanGame extends Application {
 
@@ -149,7 +150,10 @@ public class BombermanGame extends Application {
                         }
                     } else if (chooseScene % 4 == 2) {
                         // Sound.stop("menuMusic");
-                        Sound.play("menuMusic");
+                        if (!menuMusicIsPlaying) {
+                            Sound.play("menuMusic");
+                            menuMusicIsPlaying = true;
+                        }
                         gameStage.setScene(mainmenu);
                         bgMusicIsPlaying = true;
                     } else if (chooseScene % 4 == 1) {
@@ -256,6 +260,7 @@ public class BombermanGame extends Application {
             canvas.setLayoutY(0);
             Sound.stop("bg");
             bgMusicIsPlaying = false;
+            menuMusicIsPlaying = false;
             gameStage.setScene(Menu.win_loseScene(false));
             level = 1;
             map = new CreateMap(level);
@@ -268,7 +273,7 @@ public class BombermanGame extends Application {
             Sound.stop("bg");
             level++;
             bgMusicIsPlaying = false;
-            if (level != CreateMap.max_level) {
+            if (level <= CreateMap.max_level) {
                 Sound.play("menuMusic");
             }
             if (level > CreateMap.max_level) {
@@ -276,6 +281,7 @@ public class BombermanGame extends Application {
                 gameStage.setScene(Menu.win_loseScene(true));
                 bomberman.setLife(2);
                 playerPoint = 0;
+                bgMusicIsPlaying = false;
             } else {
                 gameStage.setScene(Menu.levelScene());
             }

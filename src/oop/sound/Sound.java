@@ -10,6 +10,7 @@ public class Sound {
   private static String lastSound;
 
   public static boolean bgMusicIsPlaying;
+  public static boolean menuMusicIsPlaying;
 
   public static void play(String sound) {
     if (Objects.equals(sound, "bombPut") || Objects.equals(sound, "bombExploded")
