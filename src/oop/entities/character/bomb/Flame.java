@@ -4,11 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import oop.BombermanGame;
 import oop.entities.Entity;
-import oop.entities.mapblock.Brick;
-import oop.entities.mapblock.Wall;
+import oop.entities.character.Character;
+import oop.entities.stillobjects.mapblock.Brick;
+import oop.entities.stillobjects.mapblock.Wall;
 import oop.graphics.Sprite;
 
-public class Flame extends Entity {
+public class Flame extends Character {
     private int up;
     private int down;
     private int left;

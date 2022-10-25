@@ -1,4 +1,4 @@
-package oop.entities.mapblock;
+package oop.entities.stillobjects.mapblock;
 
 import javafx.scene.image.Image;
 import oop.BombermanGame;
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static oop.graphics.CreateMap.idMap;
 
-public class Brick extends Entity {
+public class Brick extends Block {
   public Brick(int x, int y, Image img) {
     super(x, y, img);
     setLayer(3);

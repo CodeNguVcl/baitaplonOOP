@@ -1,4 +1,4 @@
-package oop.entities.item;
+package oop.entities.stillobjects.item;
 
 import javafx.scene.image.Image;
 

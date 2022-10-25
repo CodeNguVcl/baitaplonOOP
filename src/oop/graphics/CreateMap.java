@@ -8,17 +8,15 @@ import java.util.StringTokenizer;
 import oop.BombermanGame;
 import oop.Layer;
 import oop.entities.character.Bomber;
-
 import oop.entities.character.enemy.*;
-// import oop.entities.character.enemy.Balloom;
-import oop.entities.item.BombItem;
-import oop.entities.item.FlameItem;
-import oop.entities.item.SpeedItem;
-import oop.entities.mapblock.Brick;
+import oop.entities.stillobjects.item.BombItem;
+import oop.entities.stillobjects.item.FlameItem;
+import oop.entities.stillobjects.item.SpeedItem;
+import oop.entities.stillobjects.mapblock.Brick;
 import oop.entities.Entity;
-import oop.entities.mapblock.Grass;
-import oop.entities.mapblock.Portal;
-import oop.entities.mapblock.Wall;
+import oop.entities.stillobjects.mapblock.Grass;
+import oop.entities.stillobjects.mapblock.Portal;
+import oop.entities.stillobjects.mapblock.Wall;
 
 import static oop.BombermanGame.*;
 

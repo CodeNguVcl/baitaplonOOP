@@ -29,6 +29,10 @@ public abstract class Character extends Entity implements Move {
         live = true;
     }
 
+    public Character(int x, int y) {
+        super(x, y);
+    }
+
     @Override
     public void turnUp() {
         posY = y - speed;

@@ -1,13 +1,13 @@
-package oop.entities.mapblock;
+package oop.entities.stillobjects.mapblock;
 
 import javafx.scene.image.Image;
 import oop.entities.Entity;
 
-public class Grass extends Entity {
+public class Portal extends Block {
 
-    public Grass(int x, int y, Image img) {
+    public Portal(int x, int y, Image img) {
         super(x, y, img);
-        setLayer(0);
+        setLayer(1);
     }
 
     @Override
