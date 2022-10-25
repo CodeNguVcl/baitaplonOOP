@@ -324,12 +324,12 @@ public class BombermanGame extends Application {
                     }
                 }
                 if (stillObject instanceof Portal) {
-                    // if (enemy.size() == 0) {
+                    if (enemy.size() == 0) {
+                        Sound.play("levelUp");
+                        CreateMap.nextLevel = true;
+                    }
                     // Sound.play("levelUp");
                     // CreateMap.nextLevel = true;
-                    // }
-                    Sound.play("levelUp");
-                    CreateMap.nextLevel = true;
 
                 }
                 if (bomberman.getLayer() >= stillObject.getLayer()) {

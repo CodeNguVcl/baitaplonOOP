@@ -85,6 +85,7 @@ public class CreateMap {
                 idMap[i][j] = "*";
                 break;
               case "x":
+                stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
                 ett = new Portal(j, i, Sprite.portal.getFxImage());
                 idMap[i][j] = "x*";
                 stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
